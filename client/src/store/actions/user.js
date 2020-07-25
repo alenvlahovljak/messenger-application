@@ -10,7 +10,6 @@ export const handleCreateUser = (user) => {
 };
 
 export const createUser = (data) => {
-	console.log(data);
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
 			return apiCall("POST", "/users", data)

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 
 import { createUser, addError, removeError } from "../../store/actions";
@@ -29,9 +30,11 @@ class LandingPage extends Component {
 		);
 	};
 
-	onSubmitHandler = (e) => {
+	onSubmitHandler = async (e) => {
 		e.preventDefault();
-		this.props.createUser(this.state);
+		const { latitude, longitude } = this.state.location;
+		const { data } = await axios.get(`https://geocode.xyz/${latitude},${longitude}?json=1`);
+		this.props.createUser({ city: data.city });
 	};
 
 	render() {
