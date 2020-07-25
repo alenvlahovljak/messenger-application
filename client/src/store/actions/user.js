@@ -1,24 +1,26 @@
 import { apiCall } from "../../services/api";
-import { SET_NEW_USER } from "../actionTypes";
 import { addError, removeError } from "./errors";
+import * as actionTypes from "../actionTypes";
 
-export const newUser = (user) => {
+export const handleCreateUser = (user) => {
 	return {
-		type: SET_NEW_USER,
+		type: actionTypes.SET_NEW_USER,
 		user
 	};
 };
 
-export const createUser = (type, userData) => {
+export const createUser = (data) => {
+	console.log(data);
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
-			return apiCall("post", "/users", userData)
+			return apiCall("POST", "/users", data)
 				.then((user) => {
-					dispatch(newUser(user));
+					dispatch(handleCreateUser(user));
+					dispatch(removeError());
 					resolve();
 				})
 				.catch((err) => {
-					dispatch(addError(err.message));
+					dispatch(addError(err));
 					reject();
 				});
 		});

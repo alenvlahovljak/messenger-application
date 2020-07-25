@@ -1,4 +1,4 @@
-.landing-page {
+.landing-page-main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,8 +7,9 @@
 	height: 100vh;
 }
 
-.landing-page-form {
+.landing-page {
 	display: flex;
+	margin: 0 1rem;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
@@ -24,41 +25,58 @@
 	color: white;
 }
 
+.landing-page-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 30%;
+	width: 98%;
+	margin-bottom: 5rem;
+}
+
 .landing-page-button {
-	background-color: #7f73d8;
+	background-color: #a45ee2;
+	outline: none;
+	padding: 2rem 4rem;
 	border: none;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	height: 30%;
-	width: 98%;
-	margin-bottom: 5rem;
-	font-size: 3rem;
+	font-size: 2rem;
 	cursor: pointer;
 }
 
+.landing-page-button:hover {
+	background-color: #574cac;
+	border: 3px solid white;
+}
+
+.landing-page-button:active {
+	margin-top: 1rem;
+}
+
 @media screen and (min-width: 320px) {
-	.landing-page-button {
+	.landing-page-form {
 		width: 95%;
-		font-size: 2.8rem;
+		font-size: 2.5rem;
 	}
 }
 
 @media screen and (min-width: 360px) {
-	.landing-page-button {
+	.landing-page-form {
 		width: 90%;
 	}
 }
 
 @media screen and (min-width: 480px) {
-	.landing-page-button {
+	.landing-page-form {
 		width: 70%;
 		font-size: 3rem;
 	}
 }
 
 @media screen and (min-width: 520px) {
-	.landing-page-button {
+	.landing-page-form {
 		width: 60%;
 	}
 }
@@ -67,6 +85,9 @@
 	.landing-page-info {
 		text-align: center;
 		font-size: 2rem;
+	}
+	.landing-page-button {
+		font-size: 2.7rem;
 	}
 }
 
@@ -83,8 +104,10 @@
 }
 
 @media screen and (min-width: 1366px) {
-	.landing-page-button {
+	.landing-page-form {
 		width: 60%;
-		font-size: 4rem;
+	}
+	.landing-page-button {
+		font-size: 3rem;
 	}
 }

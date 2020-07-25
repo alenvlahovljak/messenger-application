@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createUser } from "../../store/actions/user";
+
+import { createUser, addError, removeError } from "../../store/actions";
 
 import "./LandingPage.css";
 
@@ -8,27 +9,51 @@ class LandingPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			location: "Zenica"
+			location: {
+				latitude: undefined,
+				longitude: undefined
+			}
 		};
 	}
-	handlerCreateUser = () => {
-		console.log("hello");
-		this.props.createUser(this.state.location);
+
+	componentDidMount = () => {
+		navigator.geolocation.getCurrentPosition(
+			({ coords }) => {
+				const { longitude, latitude } = coords;
+				this.setState({ location: { longitude, latitude } });
+				this.props.removeError();
+			},
+			(err) => {
+				this.props.addError(err.message);
+			}
+		);
 	};
+
+	onSubmitHandler = (e) => {
+		e.preventDefault();
+		this.props.createUser(this.state);
+	};
+
 	render() {
 		return (
-			<main className="landing-page">
-				<div className="landing-page-form">
+			<main className="landing-page-main">
+				<div className="landing-page">
 					<span className="landing-page-info">
 						Enter application to chat with users which are currently online.
 					</span>
-					<button onClick={() => this.handlerCreateUser} className="landing-page-button">
-						ENTER!
-					</button>
+					<form onSubmit={this.onSubmitHandler} className="landing-page-form">
+						<button className="landing-page-button">CHAT NOW</button>
+					</form>
 				</div>
 			</main>
 		);
 	}
 }
 
-export default connect(null, { createUser })(LandingPage);
+const mapStateToProps = (state) => {
+	return {
+		user: state.users.user
+	};
+};
+
+export default connect(mapStateToProps, { createUser, addError, removeError })(LandingPage);

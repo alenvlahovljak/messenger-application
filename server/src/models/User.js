@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
 			minlength: [3, "Username must containt at least 3 characters"],
 			maxlength: [50, "Username cannot contain more than 50 characters"]
 		},
-		location: Object,
+		location: { type: Object, default: "Unvailable" },
 		messages: [messageSchema]
 	},
 	{ timestamps: true }

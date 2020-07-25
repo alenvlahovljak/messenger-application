@@ -1,6 +1,5 @@
 //require necessary module
-const path = require("path");
-const fs = require("fs");
+const axios = require("axios");
 
 //require db
 const db = require("../models");
@@ -12,9 +11,13 @@ const { databaseErrorHandler } = require("../controllers/errors");
 const createUser = async (req, res, next) => {
 	try {
 		const { location } = req.body;
+		console.log("CI", r.data.city);
+		if (location) {
+			//const geolocation = await axios.get(`https://geocode.xyz/${location.latitude},${location.longitude}?json=1`);
+		}
 		const user = await db.User.create({
 			username: "User",
-			location
+			location: geolocation.data.city
 		});
 		return res.status(201).json(user);
 	} catch (err) {
