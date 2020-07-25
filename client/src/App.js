@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -12,17 +12,29 @@ import "./App.css";
 
 class App extends Component {
 	render() {
+		const { user } = this.props;
 		return (
-			<Switch>
-				<Route exact path="/">
-					<LandingPage {...this.props} />
-				</Route>
-				<Route exact path="/messenger">
-					<Messenger />
-				</Route>
-			</Switch>
+			<div>
+				<Switch>
+					<Route exact path="/">
+						<LandingPage {...this.props} />
+					</Route>
+					<Route exact path="/messenger">
+						{user._id ? <Messenger /> : <Redirect to="/" />}
+					</Route>
+					<Route>
+						<Messenger />
+					</Route>
+				</Switch>
+			</div>
 		);
 	}
 }
 
-export default withRouter(App);
+const mapStateToProps = (state) => {
+	return {
+		user: state.users.user
+	};
+};
+
+export default connect(mapStateToProps)(withRouter(App));

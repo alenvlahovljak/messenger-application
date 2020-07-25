@@ -51,15 +51,10 @@ class LandingPage extends Component {
 	};
 
 	render() {
-		console.log("PORPs", this.props);
+		const { error } = this.props;
 		return (
 			<main className="landing-page-main">
-				<ErrorMessageBox
-					display={this.props.error ? "block" : "none"}
-					height="3"
-					width="10"
-					message={this.props.error}
-				/>
+				<ErrorMessageBox display={error ? "block" : "none"} height="3" width="10" />
 				<div className="landing-page">
 					<span className="landing-page-info">
 						Enter application to chat with users which are currently online.
