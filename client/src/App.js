@@ -22,9 +22,7 @@ class App extends Component {
 					<Route exact path="/messenger">
 						{user._id ? <Messenger /> : <Redirect to="/" />}
 					</Route>
-					<Route>
-						<Messenger />
-					</Route>
+					<Redirect to="/" />
 				</Switch>
 			</div>
 		);
