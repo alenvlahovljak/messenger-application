@@ -71,7 +71,7 @@
 @media screen and (min-width: 480px) {
 	.landing-page-form {
 		width: 70%;
-		font-size: 3rem;
+		font-size: 2.6rem;
 	}
 }
 
@@ -108,6 +108,6 @@
 		width: 60%;
 	}
 	.landing-page-button {
-		font-size: 3rem;
+		font-size: 2.8rem;
 	}
 }

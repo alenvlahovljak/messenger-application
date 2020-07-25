@@ -7,7 +7,7 @@ export default (state = { err: null }, action) => {
 		case REMOVE_ERROR:
 			return {
 				...state,
-				message: null
+				err: null
 			};
 		default:
 			return state;
