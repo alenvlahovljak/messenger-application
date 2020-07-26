@@ -1,0 +1,49 @@
+.nav {
+	display: flex;
+	justify-content: center;
+	background-color: #9943e4;
+}
+
+.nav-icon {
+	color: white;
+	padding: 0.5rem 3rem;
+	font-size: 2.5rem;
+}
+
+.nav-icon:hover {
+	background-color: violet;
+}
+
+.nav-icon:active {
+	background-color: rebeccapurple;
+}
+
+@media screen and (min-width: 320px) {
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 520px) {
+}
+
+@media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 720px) {
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+}

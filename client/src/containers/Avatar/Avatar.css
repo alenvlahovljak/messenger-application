@@ -1,0 +1,10 @@
+img {
+	display: block;
+	width: 10rem;
+	height: 10rem;
+	border-radius: 50%;
+}
+
+.avatar-upload {
+	display: none;
+}

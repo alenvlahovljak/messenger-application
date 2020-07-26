@@ -1,0 +1,6 @@
+.Upload:hover {
+	box-sizing: border-box;
+	border: 2px solid palevioletred;
+	background-color: white;
+	content: url("../../public/images/upload-avatar.png");
+}

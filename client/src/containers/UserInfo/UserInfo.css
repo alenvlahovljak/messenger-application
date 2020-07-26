@@ -1,0 +1,52 @@
+.user-info {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	background-color: #574cac;
+	font-size: 2rem;
+	padding: 1rem;
+}
+
+.user-backward {
+	margin-right: auto;
+	color: white;
+	padding: 0 3rem;
+	display: block;
+}
+
+.user-username {
+	padding: 0 2rem;
+	color: white;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 320px) {
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 520px) {
+}
+
+@media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 720px) {
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+}

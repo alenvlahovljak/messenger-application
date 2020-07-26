@@ -38,7 +38,6 @@ class LandingPage extends Component {
 		this.setState({ isClicked: true });
 		const { latitude, longitude } = this.state.location;
 		const geo = await axios.get(`https://geocode.xyz/${latitude},${longitude}?json=1`);
-		console.log(geo);
 		geo.status == 200
 			? await this.props.createUser({ city: geo.data.city })
 			: this.props.addError(geo.data.error.description);
@@ -47,13 +46,12 @@ class LandingPage extends Component {
 
 	onClickHandler = (user) => {
 		user._id && this.props.history.push("/messenger");
-		this.props.removeError();
 	};
 
 	render() {
 		const { error } = this.props;
 		return (
-			<main className="landing-page-main">
+			<main className="main">
 				<ErrorMessageBox display={error ? "block" : "none"} height="3" width="10" />
 				<div className="landing-page">
 					<span className="landing-page-info">

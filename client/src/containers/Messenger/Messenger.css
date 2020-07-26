@@ -1,0 +1,41 @@
+.messenger-box {
+	display: flex;
+	flex-direction: column;
+	width: 98%;
+}
+
+@media screen and (min-width: 320px) {
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 520px) {
+}
+
+@media screen and (min-width: 600px) {
+	.messenger-box {
+		width: 80%;
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.messenger-box {
+		width: 70rem;
+	}
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+}

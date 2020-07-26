@@ -1,0 +1,22 @@
+.active-user {
+	display: flex;
+	padding: 1rem;
+	justify-content: space-between;
+	background-color: rgb(241, 237, 237);
+}
+
+.active-user-info {
+	display: flex;
+	justify-content: space-evenly;
+	width: 80%;
+	padding: 0 1rem;
+	flex-direction: column;
+}
+
+.active-user-nick {
+	font-size: 2rem;
+}
+
+.active-user-message {
+	font-size: 1.5rem;
+}

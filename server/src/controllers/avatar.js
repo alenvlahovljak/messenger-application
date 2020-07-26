@@ -9,6 +9,7 @@ const db = require("../models");
 //define create avatar handler
 const createAvatar = async (req, res, next) => {
 	try {
+		console.log("file", req.file);
 		const { filename, path: avatarPath, destination } = req.file;
 		const user = await db.User.findById(Object.values(req.params)[0]);
 		if (!user) {
@@ -17,10 +18,9 @@ const createAvatar = async (req, res, next) => {
 				messages: "User not found!"
 			});
 		}
-
 		await sharp(avatarPath)
-			.resize({ width: 250, height: 250 })
-			.jpeg({ quality: 50 })
+			.resize({ width: 50, height: 50 })
+			.jpeg({ quality: 70 })
 			.toFile(path.resolve(destination, "../avatars", filename));
 		fs.unlinkSync(avatarPath);
 		user.avatar = {
@@ -28,10 +28,7 @@ const createAvatar = async (req, res, next) => {
 			path: `avatars/${filename}`
 		};
 		await user.save();
-		return res.status(200).json({
-			status: res.statusCode,
-			messages: "Your avatar has been updated successfully!"
-		});
+		return res.status(201).json(user);
 	} catch (err) {
 		return next({
 			status: 400,
