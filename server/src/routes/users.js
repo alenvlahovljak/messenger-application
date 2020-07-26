@@ -20,7 +20,7 @@ const { createAvatar, deleteAvatar } = require("../controllers/avatar");
 router.route("/").post(createUser);
 
 //define user's avatar routes
-router.post("/:user_id/avatar", avatar.single("avatar"), createAvatar);
+router.post("/:user_id/avatar", avatar.single("avatar"), createAvatar, uploadErrorHandler);
 router.route("/:user_id/avatar").delete(deleteAvatar);
 
 //export users' routes

@@ -9,7 +9,6 @@ const db = require("../models");
 //define create avatar handler
 const createAvatar = async (req, res, next) => {
 	try {
-		console.log("file", req.file);
 		const { filename, path: avatarPath, destination } = req.file;
 		const user = await db.User.findById(Object.values(req.params)[0]);
 		if (!user) {

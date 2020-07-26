@@ -1,6 +1,7 @@
 import { apiCall, apiCallAsync, createUserAPI, setAvatarAPI } from "../../services/api";
 import { addError, removeError } from "./errors";
 import * as actionTypes from "../actionTypes";
+import { connect } from "react-redux";
 
 export const handleCreateUser = (user) => {
 	return {
@@ -59,8 +60,8 @@ export const setAvatar = ({ _id }, data) => {
 			dispatch(handleSetAvatar(user.data));
 			dispatch(removeError());
 		} catch (err) {
-			dispatch(addError(err.response));
-			dispatch(removeError());
+			const { data } = err.response;
+			dispatch(addError(data.message));
 		}
 	};
 };

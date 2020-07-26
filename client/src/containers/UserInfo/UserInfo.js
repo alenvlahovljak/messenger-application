@@ -19,7 +19,6 @@ class UserInfo extends Component {
 
 	render() {
 		const { user } = this.props;
-		console.log("USER", user);
 		return (
 			<header className="user-info">
 				<span className="user-backward">
