@@ -8,3 +8,12 @@ img {
 .avatar-upload {
 	display: none;
 }
+
+.avatar-activity {
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+	width: 30%;
+	height: 30%;
+	border-radius: 50%;
+}

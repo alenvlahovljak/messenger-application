@@ -1,14 +1,6 @@
 //require necessary modules
 const mongoose = require("mongoose");
 
-//define message Schema
-const messageSchema = new mongoose.Schema(
-	{
-		content: String
-	},
-	{ timestamps: true }
-);
-
 //define mongoose Schema
 const userSchema = new mongoose.Schema(
 	{
@@ -21,8 +13,7 @@ const userSchema = new mongoose.Schema(
 			minlength: [3, "Username must containt at least 3 characters"],
 			maxlength: [50, "Username cannot contain more than 50 characters"]
 		},
-		city: { type: String, default: "Unvailable" },
-		messages: [messageSchema]
+		city: { type: String, default: "Unvailable" }
 	},
 	{ timestamps: true }
 );

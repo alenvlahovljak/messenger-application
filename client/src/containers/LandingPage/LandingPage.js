@@ -45,7 +45,7 @@ class LandingPage extends Component {
 	};
 
 	onClickHandler = (user) => {
-		user._id && this.props.history.push("/messenger");
+		user._id && this.props.history.push("/messenger/rooms");
 	};
 
 	render() {

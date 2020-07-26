@@ -25,14 +25,17 @@ class Avatar extends Component {
 	};
 
 	render() {
-		const { src, alt, size, upload } = this.props;
+		const { src, alt, size, upload, online } = this.props;
 		return upload ? (
-			<label onClick={this.onClickHandler} htmlFor="avatar-upload">
+			<label onClick={this.onClickHandler} htmlFor="avatar-upload" style={{ position: "relative" }}>
+				<div className="avatar-activity"></div>
 				<img className={styles.Upload} src={src} alt={alt} style={{ height: `${size}rem`, width: `${size}rem` }} />
 				<input onChange={this.onChangeHandler} id="avatar-upload" className="avatar-upload" type="file" required />
 			</label>
 		) : (
-			<img src={src} alt={alt} style={{ height: `${size}rem`, width: `${size}rem` }} />
+			<span style={{ position: "relative" }}>
+				<img src={src} alt={alt} style={{ height: `${size}rem`, width: `${size}rem` }} />
+			</span>
 		);
 	}
 }

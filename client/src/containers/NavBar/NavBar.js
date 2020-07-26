@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faComment } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,12 +10,16 @@ class NavBar extends Component {
 	render() {
 		return (
 			<nav className="nav">
-				<span className="nav-icon">
+				<NavLink
+					activeStyle={{ backgroundColor: "palevioletred" }}
+					to="/messenger/active-users"
+					className="nav-icon"
+				>
 					<FontAwesomeIcon icon={faUser} />
-				</span>
-				<span className="nav-icon">
+				</NavLink>
+				<NavLink activeStyle={{ backgroundColor: "palevioletred" }} to="/messenger/rooms" className="nav-icon">
 					<FontAwesomeIcon icon={faComment} />
-				</span>
+				</NavLink>
 			</nav>
 		);
 	}

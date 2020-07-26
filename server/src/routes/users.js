@@ -7,6 +7,9 @@ const router = express.Router({ mergeParams: true });
 //require error handler
 const { uploadErrorHandler } = require("../controllers/errors");
 
+//require user's middleware
+const { isValidUser } = require("../middleware/user");
+
 //require utils
 const { avatar } = require("../utils/index");
 
@@ -20,7 +23,7 @@ const { createAvatar, deleteAvatar } = require("../controllers/avatar");
 router.route("/").post(createUser);
 
 //define user's avatar routes
-router.post("/:user_id/avatar", avatar.single("avatar"), createAvatar, uploadErrorHandler);
+router.post("/:user_id/avatar", isValidUser, avatar.single("avatar"), createAvatar, uploadErrorHandler);
 router.route("/:user_id/avatar").delete(deleteAvatar);
 
 //export users' routes

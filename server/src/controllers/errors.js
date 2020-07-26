@@ -26,7 +26,7 @@ const uploadErrorHandler = (err, req, res, next) => {
 	if (err.code === "LIMIT_FILE_SIZE") {
 		return res.status(413).json({
 			status: 413,
-			messages: "File is to large!"
+			message: "File is to large!"
 		});
 	} else if (JSON.parse(err.message)) {
 		return res.status(422).json(JSON.parse(err.message));

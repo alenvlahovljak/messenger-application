@@ -1,11 +1,17 @@
 //require necessary modules
 const path = require("path");
+const http = require("http");
 const express = require("express");
+const socketIO = require("socket.io");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
 //execute Express app
 const app = express();
+const server = http.createServer(app);
+
+//configure socket.io
+const io = socketIO(server);
 
 //require error handler
 const { errorHandler } = require("./controllers/errors");
@@ -23,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //configure static files serving
-app.use("/avatars", express.static(path.join(__dirname, "../public/storage/avatars")));
+app.use("/messenger/avatars", express.static(path.join(__dirname, "../public/storage/avatars")));
 
 //use routes
 app.use("/users", usersRoutes);

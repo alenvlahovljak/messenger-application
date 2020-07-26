@@ -1,0 +1,88 @@
+.room {
+	display: flex;
+	margin-bottom: 1.5rem;
+	padding: 1rem;
+	justify-content: space-between;
+	background-color: rgb(241, 237, 237);
+}
+
+.room-info {
+	display: flex;
+	justify-content: space-evenly;
+	max-width: 60%;
+	padding: 0 0.3rem;
+	flex-direction: column;
+}
+
+.room-nick {
+	font-size: 1.3rem;
+}
+
+.room-message {
+	white-space: nowrap;
+	width: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 1rem;
+}
+
+@media screen and (min-width: 320px) {
+	.room-info {
+		max-width: 80%;
+		padding: 0 0.5rem;
+	}
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+	.room-info {
+		padding: 0 0.7rem;
+	}
+}
+
+@media screen and (min-width: 520px) {
+	.room-info {
+		width: 90%;
+		padding: 0 1rem;
+	}
+}
+
+@media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 720px) {
+	.room-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.room-nick {
+		font-size: 1.8rem;
+	}
+	.room-message {
+		font-size: 1.3rem;
+	}
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+	.room-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.room-nick {
+		font-size: 2rem;
+	}
+	.room-message {
+		font-size: 1.5rem;
+	}
+}

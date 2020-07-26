@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import MessengerRoom from "../MessengerRoom/MessengerRoom";
+import RoomsList from "../RoomsList/RoomsList";
+import ActiveUsersList from "../ActiveUsersList/ActiveUsersList";
 import NavBar from "../NavBar/NavBar";
 
 import { UserInfo, ErrorMessageBox } from "../../components/UI";
@@ -13,13 +15,14 @@ class Messenger extends Component {
 		super(props);
 	}
 	render() {
-		const { error } = this.props;
+		const { error, location } = this.props;
 		return (
 			<main className="main">
 				<ErrorMessageBox display={error ? "block" : "none"} height="3" width="10" />
 				<div className="messenger-box">
 					<UserInfo />
-					<MessengerRoom />
+					{location.pathname == "/messenger/active-users" && <ActiveUsersList />}
+					{location.pathname == "/messenger/rooms" && <RoomsList />}
 					<NavBar />
 				</div>
 			</main>

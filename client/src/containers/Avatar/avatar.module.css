@@ -4,3 +4,11 @@
 	background-color: white;
 	content: url("../../public/images/upload-avatar.png");
 }
+
+.Online {
+	background-color: green;
+}
+
+.Offline {
+	background-color: red;
+}

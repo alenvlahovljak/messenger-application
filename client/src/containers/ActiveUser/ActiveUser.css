@@ -1,0 +1,88 @@
+.active-user {
+	display: flex;
+	margin-bottom: 1.5rem;
+	padding: 1rem;
+	justify-content: space-between;
+	background-color: rgb(241, 237, 237);
+}
+
+.active-user-info {
+	display: flex;
+	justify-content: space-evenly;
+	max-width: 60%;
+	padding: 0 0.3rem;
+	flex-direction: column;
+}
+
+.active-user-nick {
+	font-size: 1.3rem;
+}
+
+.active-user-activity {
+	white-space: nowrap;
+	width: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 1rem;
+}
+
+@media screen and (min-width: 320px) {
+	.active-user-info {
+		max-width: 80%;
+		padding: 0 0.5rem;
+	}
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+	.active-user-info {
+		padding: 0 0.7rem;
+	}
+}
+
+@media screen and (min-width: 520px) {
+	.active-user-info {
+		width: 90%;
+		padding: 0 1rem;
+	}
+}
+
+@media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 720px) {
+	.active-user-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.active-user-nick {
+		font-size: 1.8rem;
+	}
+	.active-user-activity {
+		font-size: 1.3rem;
+	}
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+	.active-user-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.active-user-nick {
+		font-size: 2rem;
+	}
+	.active-user-activity {
+		font-size: 1.5rem;
+	}
+}

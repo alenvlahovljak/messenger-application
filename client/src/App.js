@@ -15,13 +15,21 @@ class App extends Component {
 			<div>
 				<Switch>
 					<Route exact path="/">
-						<LandingPage {...this.props} />
+						<Redirect to="/messenger" />
 					</Route>
 					<Route exact path="/messenger">
-						{/*user._id ? <Messenger /> : <Redirect to="/" />*/}
-						<Messenger />
+						<LandingPage {...this.props} />
 					</Route>
-					<Redirect to="/" />
+					<Route exact path="/messenger/rooms">
+						{/*user._id ? <Messenger /> : <Redirect to="/" />*/}
+						<Messenger {...this.props} />
+					</Route>
+					<Route exact path="/messenger/active-users">
+						<Messenger {...this.props} />
+					</Route>
+					<Route>
+						<Redirect to="/" />
+					</Route>
 				</Switch>
 			</div>
 		);
