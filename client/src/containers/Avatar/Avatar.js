@@ -8,9 +8,6 @@ import styles from "./avatar.module.css";
 class Avatar extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			upload: this.props.upload
-		};
 	}
 	onClickHandler = () => {
 		this.setState({ upload: false });
@@ -29,7 +26,13 @@ class Avatar extends Component {
 		return upload ? (
 			<label onClick={this.onClickHandler} htmlFor="avatar-upload" style={{ position: "relative" }}>
 				<div className="avatar-activity"></div>
-				<img className={styles.Upload} src={src} alt={alt} style={{ height: `${size}rem`, width: `${size}rem` }} />
+				<img
+					onChange={this.change}
+					className={styles.Upload}
+					src={src}
+					alt={alt}
+					style={{ height: `${size}rem`, width: `${size}rem` }}
+				/>
 				<input onChange={this.onChangeHandler} id="avatar-upload" className="avatar-upload" type="file" required />
 			</label>
 		) : (

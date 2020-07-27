@@ -30,7 +30,7 @@ class UserInfo extends Component {
 
 				<Avatar
 					upload
-					src={user.avatar ? user.avatar.path : defaultAvatar}
+					src={user.avatar ? `${user.avatar.path}?${Date.now()}` : defaultAvatar}
 					alt={`${user.username}'s avatar`}
 					size="4"
 				/>
