@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import io from "socket.io-client";
+import { addError, removeError, addInfoMessage, removeInfoMessage } from "../../store/actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
@@ -15,11 +17,29 @@ class UserInfo extends Component {
 		super(props);
 	}
 
+	leaveRoom = (room) => {
+		const { user } = this.props;
+		const socket = io.connect();
+		socket.emit("leaveRoom", { user, room }, (err) => {
+			if (err?.length > 0) {
+				removeInfoMessage();
+				return addError(err);
+			}
+			removeError();
+		});
+	};
+
 	render() {
-		const { user, history } = this.props;
+		const { user, history, match } = this.props;
 		return (
 			<header className="user-info">
-				<span className="user-backward" onClick={() => history.goBack()}>
+				<span
+					className="user-backward"
+					onClick={() => {
+						history.goBack();
+						this.leaveRoom(match.params.id_2);
+					}}
+				>
 					<FontAwesomeIcon icon={faBackward} />
 				</span>
 
@@ -46,4 +66,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(UserInfo);
+export default connect(mapStateToProps, { addError, removeError, addInfoMessage, removeInfoMessage })(UserInfo);

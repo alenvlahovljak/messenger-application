@@ -1,10 +1,6 @@
 //require db
 const db = require("../models");
 
-//require constants
-const { USER_STATUS } = require("../utils/constants");
-const { use } = require("../routes/users");
-
 //define User class
 class Users {
 	constructor() {
@@ -18,13 +14,11 @@ class Users {
 		return await db.User.findOne({ socketId: id });
 	};
 	getUserBySocketIdAndDisconnect = async (id) => {
-		const user = await db.User.findOne({ socketId: id });
-		user.status = "offline";
-		await user.save();
+		const user = await (await db.User.findOne({ socketId: id })).deleteOne();
 		return user;
 	};
 	getUserListExpectCurrentUser = async (user) => {
-		const users = await db.User.find({ _id: { $nin: [user._id] } });
+		const users = await db.User.find({ _id: { $nin: [user._id] }, status: "online" });
 		return users;
 	};
 }

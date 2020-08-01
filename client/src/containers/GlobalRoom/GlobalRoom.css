@@ -1,0 +1,92 @@
+.global-room {
+	display: flex;
+	margin-bottom: 1.5rem;
+	padding: 1rem;
+	justify-content: space-between;
+	background-color: rgb(241, 237, 237);
+}
+
+.global-room:hover {
+	cursor: pointer;
+}
+
+.global-room-info {
+	display: flex;
+	justify-content: space-evenly;
+	max-width: 60%;
+	padding: 0 0.3rem;
+	flex-direction: column;
+}
+
+.global-room-nick {
+	font-size: 1.3rem;
+}
+
+.global-room-message {
+	white-space: nowrap;
+	width: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 1rem;
+}
+
+@media screen and (min-width: 320px) {
+	.global-room-info {
+		max-width: 80%;
+		padding: 0 0.5rem;
+	}
+}
+
+@media screen and (min-width: 360px) {
+}
+
+@media screen and (min-width: 480px) {
+	.global-room-info {
+		padding: 0 0.7rem;
+	}
+}
+
+@media screen and (min-width: 520px) {
+	.global-room-info {
+		width: 90%;
+		padding: 0 1rem;
+	}
+}
+
+@media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 720px) {
+	.global-room-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.global-room-nick {
+		font-size: 1.8rem;
+	}
+	.global-room-message {
+		font-size: 1.3rem;
+	}
+}
+
+@media screen and (min-width: 800px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (min-width: 1366px) {
+	.global-room-info {
+		max-width: 80%;
+		padding: 0 1rem;
+	}
+	.global-room-nick {
+		font-size: 2rem;
+	}
+	.global-room-message {
+		font-size: 1.5rem;
+	}
+}

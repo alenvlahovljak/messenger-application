@@ -27,6 +27,7 @@ const { usersRoutes } = require("./routes");
 
 //require database
 const db = require("./models");
+const { join } = require("path");
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -79,6 +80,33 @@ io.on("connection", (socket) => {
 			}
 			const users = await usersIO.getUserListExpectCurrentUser(user);
 			cb(users);
+		} catch (err) {
+			cb(err);
+		}
+	});
+
+	//join room
+	socket.on("joinRoom", (user, cb) => {
+		try {
+			if (user._id == undefined) {
+				return cb("Cannot obtain user, please refresh your browser!");
+			}
+			socket.join("global");
+			socket.emit("newUser", `Welcome ${user.username} to Global Room!`);
+			socket.to("global").emit("newUser", `${user.username} has joined the Global Room!`);
+			cb();
+		} catch (err) {
+			cb(err);
+		}
+	});
+
+	//disconnect from room
+	socket.on("leaveRoom", async (obj, cb) => {
+		try {
+			if (obj.user._id == undefined) {
+				return cb("Cannot obtain user, please refresh your browser!");
+			}
+			socket.to(obj.room).emit("disconnectedUser", `${obj.user.username} disconected ${obj.room} room!`);
 		} catch (err) {
 			cb(err);
 		}
