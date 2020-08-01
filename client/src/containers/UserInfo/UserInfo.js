@@ -31,7 +31,7 @@ class UserInfo extends Component {
 
 				<Avatar
 					upload
-					src={user.avatar ? `${user.avatar.path}?${Date.now()}` : defaultAvatar}
+					src={user.avatar ? `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}` : defaultAvatar}
 					alt={`${user.username}'s avatar`}
 					size="4"
 				/>

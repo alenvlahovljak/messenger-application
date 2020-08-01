@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import io from "socket.io-client";
 import { connect } from "react-redux";
 import {
 	getAllUsersExpectCurrent,
@@ -17,16 +18,33 @@ class ActiveUsersList extends Component {
 		super(props);
 	}
 
+	componentDidMount = () => {
+		const { user, getAllUsersExpectCurrent, addError, removeError, addInfoMessage, removeInfoMessage } = this.props;
+		const socket = io.connect();
+		socket.emit("allUsersExpectCurrent", user, (users) => {
+			if (!Array.isArray(users)) {
+				removeInfoMessage();
+				addError("Someting went wrong, refresh your browser!");
+			}
+			removeError();
+			getAllUsersExpectCurrent(users);
+		});
+	};
+
 	render() {
 		const { users = [] } = this.props;
-		//const activeUsers = users.map((user) => <ActiveUser />);
-		return (
-			<div className="active-users-list">
-				<ActiveUser />
-				<ActiveUser />
-				<ActiveUser />
-			</div>
-		);
+		const activeUsers = users.map((user) => (
+			<ActiveUser
+				{...this.props}
+				key={user._id}
+				_id={user._id}
+				avatar={user.avatar ? user.avatar : undefined}
+				username={user.username}
+				status={user.status}
+				updatedAt={user.updatedAt}
+			/>
+		));
+		return <div className="active-users-list">{activeUsers}</div>;
 	}
 }
 

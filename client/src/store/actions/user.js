@@ -56,7 +56,7 @@ export const getUser = ({ _id }) => {
 export const setAvatar = ({ _id }, data) => {
 	return async (dispatch) => {
 		try {
-			const user = await createUserAPI("POST", `/users/${_id}/avatar`, data);
+			const user = await createUserAPI("POST", `http://localhost:8000/users/${_id}/avatar`, data);
 			dispatch(handleSetAvatar(user.data));
 			dispatch(removeError());
 		} catch (err) {

@@ -36,7 +36,7 @@ app.use(
 	cors({
 		credentials: true,
 		origin: (origin, cb) => {
-			if (CORS.WHITE_LIST.includes(origin)) return cb(null, true);
+			/*if (CORS.WHITE_LIST.includes(origin)) */ return cb(null, true);
 			cb(new Error("Not allowed by CORS!"));
 		}
 	})
@@ -72,6 +72,17 @@ io.on("connection", (socket) => {
 	});
 
 	//get all users expect current user
+	socket.on("allUsersExpectCurrent", async (user, cb) => {
+		try {
+			if (user._id == undefined) {
+				return cb("Cannot obtain user, please refresh your browser!");
+			}
+			const users = await usersIO.getUserListExpectCurrentUser(user);
+			cb(users);
+		} catch (err) {
+			cb(err);
+		}
+	});
 
 	//user disconnect from application
 	socket.on("disconnect", async () => {
