@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { createUser, addError, removeError } from "../../store/actions";
+import { createUser, addError, removeError, removeInfoMessage } from "../../store/actions";
 
 import { Loader } from "../../components/Animations";
 import { ErrorMessageBox } from "../../components/UI";
@@ -26,8 +26,10 @@ class LandingPage extends Component {
 				const { longitude, latitude } = coords;
 				this.setState({ location: { longitude, latitude } });
 				this.props.removeError();
+				this.props.removeInfoMessage();
 			},
 			(err) => {
+				this.props.removeInfoMessage();
 				this.props.addError(err.message);
 			}
 		);
@@ -37,15 +39,19 @@ class LandingPage extends Component {
 		e.preventDefault();
 		this.setState({ isClicked: true });
 		const { latitude, longitude } = this.state.location;
-		const geo = await axios.get(`https://geocode.xyz/${latitude},${longitude}?json=1`);
+		/*
+		const geo = await axios.get(
+			`https://geocode.xyz/${latitude},${longitude}?json=1&auth=914957577703788809108x6850`
+		);
 		geo.status == 200
 			? await this.props.createUser({ city: geo.data.city })
-			: this.props.addError(geo.data.error.description);
+			: this.props.addError(geo.data.error.description);*/
+		await this.props.createUser({ city: "Sarajevo" });
 		this.onClickHandler(this.props.user);
 	};
 
 	onClickHandler = (user) => {
-		user._id && this.props.history.push("/messenger/rooms");
+		user._id && this.props.history.push("/rooms");
 	};
 
 	render() {
@@ -77,4 +83,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { createUser, addError, removeError })(LandingPage);
+export default connect(mapStateToProps, { createUser, addError, removeError, removeInfoMessage })(LandingPage);

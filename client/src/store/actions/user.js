@@ -65,3 +65,10 @@ export const setAvatar = ({ _id }, data) => {
 		}
 	};
 };
+
+export const getAllUsersExpectCurrent = (users) => {
+	return {
+		type: actionTypes.GET_ALL_USERS_EXPECT_CURRENT,
+		users
+	};
+};

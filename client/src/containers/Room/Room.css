@@ -6,6 +6,10 @@
 	background-color: rgb(241, 237, 237);
 }
 
+.room:hover {
+	cursor: pointer;
+}
+
 .room-info {
 	display: flex;
 	justify-content: space-evenly;

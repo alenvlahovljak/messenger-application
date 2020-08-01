@@ -16,10 +16,12 @@
 
 .active-user-nick {
 	font-size: 1.3rem;
+	color: rebeccapurple;
 }
 
 .active-user-activity {
 	white-space: nowrap;
+	color: rgb(170, 62, 98);
 	width: 90%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -83,6 +85,6 @@
 		font-size: 2rem;
 	}
 	.active-user-activity {
-		font-size: 1.5rem;
+		font-size: 1.8rem;
 	}
 }

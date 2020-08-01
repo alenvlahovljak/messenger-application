@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import LandingPage from "./containers/LandingPage/LandingPage.js";
 import Messenger from "./containers/Messenger/Messenger.js";
@@ -13,24 +12,24 @@ class App extends Component {
 		const { user } = this.props;
 		return (
 			<div>
-				<Switch>
-					<Route exact path="/">
-						<Redirect to="/messenger" />
-					</Route>
-					<Route exact path="/messenger">
-						<LandingPage {...this.props} />
-					</Route>
-					<Route exact path="/messenger/rooms">
-						{/*user._id ? <Messenger /> : <Redirect to="/" />*/}
-						<Messenger {...this.props} />
-					</Route>
-					<Route exact path="/messenger/active-users">
-						<Messenger {...this.props} />
-					</Route>
-					<Route>
-						<Redirect to="/" />
-					</Route>
-				</Switch>
+				{user._id ? (
+					<Switch>
+						<Route exact path="/">
+							<LandingPage {...this.props} />
+						</Route>
+						<Route exact path="/:id_1" render={(props) => <Messenger {...props} />} />
+						<Route exact path="/:id_1/:id_2" render={(props) => <Messenger {...props} />} />
+					</Switch>
+				) : (
+					<Switch>
+						<Route exact path="/">
+							<LandingPage {...this.props} />
+						</Route>
+						<Route>
+							<Redirect to="/" />
+						</Route>
+					</Switch>
+				)}
 			</div>
 		);
 	}

@@ -5,6 +5,12 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
 	{
 		avatar: Object,
+		status: {
+			type: String,
+			default: "offline",
+			enum: { values: ["online", "offline"], message: "Status is invalid!" },
+			trim: true
+		},
 		username: {
 			type: String,
 			unique: true,
@@ -13,7 +19,12 @@ const userSchema = new mongoose.Schema(
 			minlength: [3, "Username must containt at least 3 characters"],
 			maxlength: [50, "Username cannot contain more than 50 characters"]
 		},
-		city: { type: String, default: "Unvailable" }
+		city: { type: String, default: "Unvailable" },
+		socketId: {
+			type: String,
+			required: true,
+			default: 0
+		}
 	},
 	{ timestamps: true }
 );
@@ -21,7 +32,7 @@ const userSchema = new mongoose.Schema(
 //define static method for JSON response
 userSchema.methods.toJSON = function () {
 	const user = this.toObject();
-	delete user.updatedAt;
+	delete user.socketId;
 	delete user.__v;
 	return user;
 };

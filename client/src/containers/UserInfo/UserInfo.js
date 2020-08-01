@@ -16,12 +16,13 @@ class UserInfo extends Component {
 	}
 
 	render() {
-		const { user } = this.props;
+		const { user, history } = this.props;
 		return (
 			<header className="user-info">
-				<span className="user-backward">
+				<span className="user-backward" onClick={() => history.goBack()}>
 					<FontAwesomeIcon icon={faBackward} />
 				</span>
+
 				{user._id ? (
 					<span className="user-username">{user.username}</span>
 				) : (

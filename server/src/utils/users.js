@@ -1,31 +1,33 @@
+//require db
+const db = require("../models");
+
+//require constants
+const { USER_STATUS } = require("../utils/constants");
+const { use } = require("../routes/users");
+
+//define User class
 class Users {
 	constructor() {
 		this.users = [];
 	}
 
-	addUser(id, name, room) {
-		var user = { id, name, room };
-		this.users.push(user);
+	addUser = async (_id, status, socketId) => {
+		return await db.User.findByIdAndUpdate(_id, { status, socketId }, { runValidators: true, new: true });
+	};
+	getUserBySocketId = async (id) => {
+		return await db.User.findOne({ socketId: id });
+	};
+	getUserBySocketIdAndDisconnect = async (id) => {
+		const user = await db.User.findOne({ socketId: id });
+		user.status = "offline";
+		await user.save();
 		return user;
-	}
-
-	removeUser(id) {
-		var user = this.users.filter((user) => user.id === id)[0];
-		if (user) {
-			this.users = this.users.filter((user) => user.id !== id);
-		}
-		return user;
-	}
-
-	getUser(id) {
-		return this.users.filter((user) => user.id === id)[0];
-	}
-
-	getUserList(room) {
-		var users = this.users.filter((user) => user.room === room);
-		var namesArray = users.map((user) => user.name);
-		return namesArray;
-	}
+	};
+	getUserListExpectCurrentUser = async (user) => {
+		const users = await db.User.find({ _id: { $nin: [user._id] } });
+		return users;
+	};
 }
 
+//export User class
 module.exports = { Users };
