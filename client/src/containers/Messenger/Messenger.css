@@ -19,24 +19,36 @@
 
 @media screen and (min-width: 600px) {
 	.messenger-box {
-		width: 80%;
+		width: 90%;
 	}
 }
 
 @media screen and (min-width: 720px) {
 	.messenger-box {
-		width: 70rem;
+		width: 80%;
 	}
 }
 
 @media screen and (min-width: 800px) {
+	.messenger-box {
+		width: 75%;
+	}
 }
 
 @media screen and (min-width: 1024px) {
+	.messenger-box {
+		width: 68rem;
+	}
 }
 
 @media screen and (min-width: 1280px) {
+	.messenger-box {
+		width: 66rem;
+	}
 }
 
 @media screen and (min-width: 1366px) {
+	.messenger-box {
+		width: 64rem;
+	}
 }

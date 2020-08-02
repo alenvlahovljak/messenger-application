@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { setAvatar } from "../../store/actions";
 
 import "./Avatar.css";
 import styles from "./avatar.module.css";
 
+import defaultAvatar from "../../public/images/default-avatar.png";
+
 class Avatar extends Component {
 	constructor(props) {
 		super(props);
 	}
+
 	onClickHandler = () => {
 		this.setState({ upload: false });
 	};
@@ -22,7 +26,7 @@ class Avatar extends Component {
 	};
 
 	render() {
-		const { src, alt, size, upload, online } = this.props;
+		const { src = defaultAvatar, alt = "User didn't provide avatar", size, upload } = this.props;
 		return upload ? (
 			<label onClick={this.onClickHandler} htmlFor="avatar-upload" style={{ position: "relative" }}>
 				<div className="avatar-activity"></div>
@@ -30,7 +34,7 @@ class Avatar extends Component {
 					onChange={this.change}
 					className={styles.Upload}
 					src={src}
-					alt={alt}
+					alt={`${alt}'s avatar`}
 					style={{ height: `${size}rem`, width: `${size}rem` }}
 				/>
 				<input onChange={this.onChangeHandler} id="avatar-upload" className="avatar-upload" type="file" required />

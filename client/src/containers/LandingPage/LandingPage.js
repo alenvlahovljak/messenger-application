@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { createUser, addError, removeError, removeInfoMessage } from "../../store/actions";
 
 import { Loader } from "../../components/Animations";
-import { ErrorMessageBox } from "../../components/UI";
+import Popup from "../Popup/Popup";
 
 import "./LandingPage.css";
 
@@ -55,10 +54,9 @@ class LandingPage extends Component {
 	};
 
 	render() {
-		const { error } = this.props;
 		return (
 			<main className="main">
-				<ErrorMessageBox display={error ? "block" : "none"} height="3" width="10" />
+				<Popup />
 				<div className="landing-page">
 					<span className="landing-page-info">
 						Enter application to chat with users which are currently online.

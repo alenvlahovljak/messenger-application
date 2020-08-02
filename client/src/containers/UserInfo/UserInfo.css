@@ -3,40 +3,101 @@
 	align-items: center;
 	justify-content: flex-end;
 	background-color: #574cac;
-	font-size: 2rem;
-	padding: 1rem;
+	padding: 0.5rem;
 }
 
 .user-backward {
+	font-size: 1.2rem;
 	margin-right: auto;
 	color: white;
-	padding: 0 3rem;
+	padding: 0 1.5rem;
 	display: block;
 }
 
 .user-username {
-	padding: 0 2rem;
+	font-size: 1.2rem;
+	padding: 0 1.5rem;
 	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 @media screen and (min-width: 320px) {
+	.user-info {
+		padding: 0.8rem;
+	}
+
+	.user-backward {
+		font-size: 1.3rem;
+		padding: 0 0.8rem;
+	}
+
+	.user-username {
+		font-size: 1.5rem;
+		padding: 0 0.8rem;
+	}
 }
 
 @media screen and (min-width: 360px) {
+	.user-info {
+		padding: 1rem;
+	}
+
+	.user-backward {
+		font-size: 1.7rem;
+		padding: 0 1rem 0 0.3rem;
+	}
+
+	.user-username {
+		font-size: 1.7rem;
+		padding: 0 1rem;
+	}
 }
 
 @media screen and (min-width: 480px) {
+	.user-info {
+		padding: 1rem;
+	}
+
+	.user-backward {
+		font-size: 2rem;
+		padding: 0 2rem;
+	}
+
+	.user-username {
+		font-size: 2rem;
+		padding: 0 2.5rem;
+	}
 }
 
 @media screen and (min-width: 520px) {
+	.user-backward {
+		padding: 0 2.5rem;
+	}
+
+	.user-username {
+		padding: 0 4rem;
+	}
 }
 
 @media screen and (min-width: 600px) {
+	.user-info {
+		padding: 1.2rem;
+	}
+
+	.user-backward {
+		padding: 0 4rem;
+	}
+
+	.user-username {
+		padding: 0 5rem;
+	}
 }
 
 @media screen and (min-width: 720px) {
+	.user-info {
+		padding-right: 3rem;
+	}
 }
 
 @media screen and (min-width: 800px) {

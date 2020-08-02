@@ -8,7 +8,9 @@ import ActiveUsersList from "../ActiveUsersList/ActiveUsersList";
 import MessagesBox from "../MessagesBox/MessagesBox";
 import NavBar from "../NavBar/NavBar";
 
-import { UserInfo, ErrorMessageBox, InfoMessageBox } from "../../components/UI";
+import { UserInfo, InfoMessageBox } from "../../components/UI";
+import ErrorMessageBox from "../ErrorMesageBox/ErrorMessageBox";
+import Popup from "../Popup/Popup";
 
 import "./Messenger.css";
 
@@ -43,8 +45,7 @@ class Messenger extends Component {
 		const { error, infoMsg } = this.props;
 		return (
 			<main className="main">
-				<ErrorMessageBox display={error ? "block" : "none"} height="3" width="10" />
-				<InfoMessageBox display={infoMsg ? "block" : "none"} height="3" width="10" />
+				<Popup />
 				<div className="messenger-box">
 					<UserInfo {...this.props} />
 					<Route exact path="/active-users" render={(props) => <ActiveUsersList {...props} />} />

@@ -1,5 +1,6 @@
 import { apiCall, apiCallAsync, createUserAPI, setAvatarAPI } from "../../services/api";
 import { addError, removeError } from "./errors";
+import { removeInfoMessage } from "./infoMessages";
 import * as actionTypes from "../actionTypes";
 import { connect } from "react-redux";
 
@@ -31,6 +32,7 @@ export const createUser = (data) => {
 			dispatch(handleCreateUser(user.data));
 			dispatch(removeError());
 		} catch (err) {
+			dispatch(removeInfoMessage());
 			dispatch(addError(err.response));
 		}
 	};
@@ -46,6 +48,7 @@ export const getUser = ({ _id }) => {
 					resolve();
 				})
 				.catch((err) => {
+					dispatch(removeInfoMessage());
 					dispatch(addError(err));
 					reject();
 				});
@@ -61,6 +64,7 @@ export const setAvatar = ({ _id }, data) => {
 			dispatch(removeError());
 		} catch (err) {
 			const { data } = err.response;
+			dispatch(removeInfoMessage());
 			dispatch(addError(data.message));
 		}
 	};

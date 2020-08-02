@@ -10,7 +10,7 @@ const {
 mongoose.set("debug", true);
 
 //connect to mongodb database
-mongoose.connect(DATABASE.LOCAL || DATABASE.LOCAL, {
+mongoose.connect(DATABASE.ATLAS || DATABASE.LOCAL, {
 	keepAlive: true,
 	useCreateIndex: true,
 	useNewUrlParser: true,

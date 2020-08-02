@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import io from "socket.io-client";
+import { connect } from "react-redux";
+
 import { addError, removeError, addInfoMessage, removeInfoMessage } from "../../store/actions";
 
+import { Avatar } from "../../components/UI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
 
-import { Avatar } from "../../components/UI";
-
 import "./UserInfo.css";
-
-import defaultAvatar from "../../public/images/default-avatar.png";
 
 class UserInfo extends Component {
 	constructor(props) {
@@ -33,15 +31,17 @@ class UserInfo extends Component {
 		const { user, history, match } = this.props;
 		return (
 			<header className="user-info">
-				<span
-					className="user-backward"
-					onClick={() => {
-						history.goBack();
-						this.leaveRoom(match.params.id_2);
-					}}
-				>
-					<FontAwesomeIcon icon={faBackward} />
-				</span>
+				{match.params.id_2 && (
+					<span
+						className="user-backward"
+						onClick={() => {
+							history.goBack();
+							this.leaveRoom(match.params.id_2);
+						}}
+					>
+						<FontAwesomeIcon icon={faBackward} />
+					</span>
+				)}
 
 				{user._id ? (
 					<span className="user-username">{user.username}</span>
@@ -51,9 +51,8 @@ class UserInfo extends Component {
 
 				<Avatar
 					upload
-					src={user.avatar ? `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}` : defaultAvatar}
-					alt={`${user.username}'s avatar`}
-					size="4"
+					src={user.avatar && `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}`}
+					alt={user.username}
 				/>
 			</header>
 		);
