@@ -1,32 +1,21 @@
 .popup-message-box {
-	position: fixed;
+	justify-content: center;
+	align-items: center;
+	max-height: 8vh;
+	z-index: 10;
 	opacity: 0.8;
 	padding: 1rem 0;
 	border-radius: 3px;
 	color: white;
 	font-size: 1.1rem;
-	width: 98%;
+	width: 100%;
 	text-align: center;
-	top: 0.3rem;
-	animation: fadeIn 0.3s;
-}
-
-.error {
-	background-color: #e7596c;
-}
-
-.success {
-	background-color: green;
-}
-
-.fade-out {
-	animation: fadeOut 0.5s;
+	top: 0;
 }
 
 .popup-message-close {
-	position: absolute;
 	font-size: 2.5rem;
-	top: 25%;
+	top: 15%;
 	right: 0.5rem;
 	color: white;
 }
@@ -41,10 +30,29 @@
 	width: 80%;
 }
 
+.error {
+	height: 6vh;
+	background-color: #e7596c;
+	animation: fadeIn 0.3s;
+}
+
+.success {
+	height: 6vh;
+	background-color: green;
+	animation: fadeIn 0.3s;
+}
+
+.fade-out {
+	animation: fadeOut 0.5s;
+}
+
 @media screen and (min-width: 320px) {
 	.popup-message-box {
-		width: 98%;
 		font-size: 1.4rem;
+	}
+
+	.popup-message-close {
+		top: 25%;
 	}
 }
 
@@ -56,7 +64,7 @@
 
 @media screen and (min-width: 480px) {
 	.popup-message-box {
-		font-size: 1.8rem;
+		font-size: 1.7rem;
 	}
 	.popup-message-close {
 		right: 1rem;
@@ -74,6 +82,7 @@
 
 @media screen and (min-width: 720px) {
 	.popup-message-box {
+		margin-bottom: auto;
 		width: 80%;
 	}
 }
@@ -104,19 +113,23 @@
 
 @keyframes fadeIn {
 	from {
-		opacity: 0;
+		height: 0px;
+		opacity: 0.00001px;
 	}
 	to {
+		display: flex;
+		height: 6vh;
 		opacity: 0.8;
-		display: block;
 	}
 }
 
 @keyframes fadeOut {
 	from {
-		opacity: 1;
+		opacity: 0.8;
+		height: 6vh;
 	}
 	to {
 		opacity: 0;
+		height: 0.00001px;
 	}
 }

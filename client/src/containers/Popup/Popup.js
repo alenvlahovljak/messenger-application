@@ -41,8 +41,8 @@ class Popup extends Component {
 	setVisibility = () => {
 		const { error, info } = this.props;
 		const obj = { display: "none" };
-		if (error) obj.display = "block";
-		if (info) obj.display = "block";
+		if (error) obj.display = "flex";
+		if (info) obj.display = "flex";
 		return obj;
 	};
 
@@ -59,8 +59,8 @@ class Popup extends Component {
 				className={this.setClassName()}
 				style={this.setVisibility()}
 			>
-				<FontAwesomeIcon className="popup-message-close" icon={faTimesCircle} />
 				<span className="popup-message">{this.setMessage()}</span>
+				<FontAwesomeIcon className="popup-message-close" icon={faTimesCircle} />
 			</div>
 		);
 	}

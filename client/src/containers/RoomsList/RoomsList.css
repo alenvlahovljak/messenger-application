@@ -3,8 +3,7 @@
 	overflow-y: scroll;
 	flex-direction: column;
 	background-color: whitesmoke;
-	min-height: 50vh;
-	max-height: 70vh;
+	flex-grow: 1;
 	padding: 3rem 3rem;
 }
 

@@ -1,4 +1,5 @@
 .landing-page {
+	align-self: center;
 	display: flex;
 	margin: 0 1rem;
 	flex-direction: column;
@@ -6,13 +7,13 @@
 	align-items: center;
 	background-color: #6a59e7;
 	width: 98%;
-	flex-basis: 50rem;
-	height: 30vh;
+	height: 23vh;
 }
 
 .landing-page-info {
-	font-size: 1.5rem;
-	padding: 2rem;
+	text-align: center;
+	font-size: 1.2rem;
+	padding: 1.5rem;
 	color: white;
 }
 
@@ -20,20 +21,20 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 30%;
+	height: 30vh;
 	width: 98%;
-	margin-bottom: 5rem;
+	margin-bottom: 0.5rem;
 }
 
 .landing-page-button {
 	background-color: #a45ee2;
 	outline: none;
-	padding: 2rem 4rem;
+	padding: 1.2rem 4rem;
 	border: none;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	font-size: 2rem;
+	font-size: 1.7rem;
 	cursor: pointer;
 }
 
@@ -47,58 +48,153 @@
 }
 
 @media screen and (min-width: 320px) {
-	.landing-page-form {
-		width: 95%;
-		font-size: 2.5rem;
+	.landing-page-info {
+		font-size: 1.3rem;
+		padding: 1.7rem;
+	}
+
+	.landing-page-button {
+		padding: 1.3rem 7rem;
 	}
 }
 
 @media screen and (min-width: 360px) {
-	.landing-page-form {
-		width: 90%;
+	.landing-page {
+		height: 25vh;
+	}
+
+	.landing-page-info {
+		font-size: 1.5rem;
+		padding: 1.7rem;
+	}
+
+	.landing-page-button {
+		padding: 1.3rem 8rem;
 	}
 }
 
 @media screen and (min-width: 480px) {
+	.landing-page {
+		height: 27vh;
+	}
+	.landing-page-info {
+		font-size: 1.7rem;
+		padding: 1.7rem;
+	}
+
 	.landing-page-form {
-		width: 70%;
-		font-size: 2.6rem;
+		margin-bottom: 1rem;
+	}
+
+	.landing-page-button {
+		font-size: 1.8rem;
+		padding: 1.5rem 10rem;
 	}
 }
 
 @media screen and (min-width: 520px) {
+	.landing-page {
+		height: 28vh;
+		width: 45rem;
+	}
+	.landing-page-info {
+		font-size: 1.7rem;
+		padding: 1.7rem;
+	}
+
 	.landing-page-form {
-		width: 60%;
+		margin-bottom: 1.5rem;
+	}
+
+	.landing-page-button {
+		font-size: 2rem;
+		padding: 1.5rem 10rem;
 	}
 }
 
 @media screen and (min-width: 600px) {
-	.landing-page-info {
-		text-align: center;
-		font-size: 2rem;
+	.landing-page {
+		width: 48rem;
 	}
+	.landing-page-info {
+		padding: 2rem;
+	}
+
+	.landing-page-form {
+		margin-bottom: 1.8rem;
+	}
+
 	.landing-page-button {
-		font-size: 2.7rem;
+		padding: 1.5rem 8rem;
 	}
 }
 
 @media screen and (min-width: 720px) {
+	.landing-page {
+		height: 30vh;
+		width: 50rem;
+	}
+	.landing-page-info {
+		font-size: 1.7rem;
+	}
+
+	.landing-page-form {
+		margin-bottom: 1.5rem;
+	}
+
+	.landing-page-button {
+		padding: 1.5rem 9rem;
+	}
 }
 
 @media screen and (min-width: 800px) {
+	.landing-page-info {
+		font-size: 1.8rem;
+	}
+
+	.landing-page-button {
+		font-size: 2.2rem;
+	}
 }
 
 @media screen and (min-width: 1024px) {
+	.landing-page {
+		height: 33vh;
+		width: 55rem;
+	}
+	.landing-page-info {
+		font-size: 2rem;
+		padding: 2.3rem;
+	}
+
+	.landing-page-form {
+		margin-bottom: 2rem;
+	}
+
+	.landing-page-button {
+		font-size: 2.4rem;
+		padding: 2rem 8rem;
+	}
 }
 
 @media screen and (min-width: 1280px) {
 }
 
 @media screen and (min-width: 1366px) {
-	.landing-page-form {
-		width: 60%;
+	.landing-page {
+		height: 35vh;
+		width: 60rem;
 	}
+	.landing-page-info {
+		font-size: 2.5rem;
+	}
+
+	.landing-page-form {
+		margin-bottom: 1.8rem;
+	}
+
 	.landing-page-button {
-		font-size: 2.8rem;
+		font-size: 2.5rem;
+		padding: 2.3rem 9rem;
 	}
 }

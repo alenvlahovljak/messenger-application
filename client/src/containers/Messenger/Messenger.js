@@ -8,8 +8,7 @@ import ActiveUsersList from "../ActiveUsersList/ActiveUsersList";
 import MessagesBox from "../MessagesBox/MessagesBox";
 import NavBar from "../NavBar/NavBar";
 
-import { UserInfo, InfoMessageBox } from "../../components/UI";
-import ErrorMessageBox from "../ErrorMesageBox/ErrorMessageBox";
+import { UserInfo } from "../../components/UI";
 import Popup from "../Popup/Popup";
 
 import "./Messenger.css";

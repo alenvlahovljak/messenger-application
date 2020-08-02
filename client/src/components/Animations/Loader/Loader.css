@@ -1,11 +1,85 @@
 .loader {
-	border: 1.6rem solid #f3f3f3;
+	border: 0.8rem solid #f3f3f3;
 	border-radius: 50%;
-	border-top: 1.6rem solid #6a59e7;
-	width: 10rem;
-	height: 10rem;
+	border-top: 0.8rem solid #6a59e7;
+	width: 2.5rem;
+	height: 2.5rem;
 	-webkit-animation: spin 2s linear infinite;
 	animation: spin 2s linear infinite;
+}
+
+@media screen and (min-width: 320px) {
+	.loader {
+		width: 2.7rem;
+		height: 2.7rem;
+		border-width: 0.9rem;
+	}
+}
+
+@media screen and (min-width: 360px) {
+	.loader {
+		border-width: 1rem;
+	}
+}
+
+@media screen and (min-width: 480px) {
+	.loader {
+		width: 2.9rem;
+		height: 2.9rem;
+	}
+}
+
+@media screen and (min-width: 520px) {
+	.loader {
+		height: 3rem;
+		width: 3rem;
+		border-width: 1.2rem;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.loader {
+		height: 3.2rem;
+		width: 3.2rem;
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.loader {
+		height: 3.4rem;
+		width: 3.4rem;
+		border-width: 1.4rem;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	.loader {
+		height: 3.4rem;
+		width: 3.4rem;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.loader {
+		height: 3.6rem;
+		width: 3.6rem;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.loader {
+		height: 3.8rem;
+		width: 3.8rem;
+		border-width: 1.6rem;
+	}
+}
+
+@media screen and (min-width: 1366px) {
+	.loader {
+		height: 4rem;
+		width: 4rem;
+		border-width: 1.8rem;
+	}
 }
 
 @-webkit-keyframes spin {

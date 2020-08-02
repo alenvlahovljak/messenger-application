@@ -62,11 +62,7 @@ class LandingPage extends Component {
 						Enter application to chat with users which are currently online.
 					</span>
 					<form onSubmit={this.onSubmitHandler} className="landing-page-form">
-						{this.state.isClicked ? (
-							<Loader height="3" width="3" />
-						) : (
-							<button className="landing-page-button">CHAT NOW</button>
-						)}
+						{this.state.isClicked ? <Loader /> : <button className="landing-page-button">CHAT NOW </button>}
 					</form>
 				</div>
 			</main>
