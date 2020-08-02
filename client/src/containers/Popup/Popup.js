@@ -11,18 +11,31 @@ import "./Popup.css";
 class Popup extends Component {
 	constructor(props) {
 		super(props);
+		this.state = { fadeOut: false };
 	}
 
 	onClickHandler = () => {
+		this.setState({ fadeOut: true });
+	};
+
+	onAnimationEndHandler = () => {
+		const { fadeOut } = this.state;
 		const { removeError, removeInfoMessage } = this.props;
-		if (removeError) removeError();
-		if (removeInfoMessage) removeInfoMessage();
+		if (fadeOut) {
+			if (removeError) removeError();
+			if (removeInfoMessage) removeInfoMessage();
+			this.setState({ fadeOut: false });
+		}
 	};
 
 	setClassName = () => {
+		const { fadeOut } = this.state;
 		const { error, info } = this.props;
-		if (error) return "popup-message-box error";
-		if (info) return "popup-message-box success";
+		const className = ["popup-message-box"];
+		if (error) className.push("error");
+		if (info) className.push("success");
+		if (fadeOut) className.push("fade-out");
+		return className.join(" ");
 	};
 
 	setVisibility = () => {
@@ -33,13 +46,21 @@ class Popup extends Component {
 		return obj;
 	};
 
-	render() {
+	setMessage = () => {
 		const { error, info } = this.props;
-		const display = error || info;
+		return error || info;
+	};
+
+	render() {
 		return (
-			<div onClick={() => this.onClickHandler()} className={this.setClassName()} style={this.setVisibility()}>
+			<div
+				onAnimationEnd={() => this.onAnimationEndHandler()}
+				onClick={() => this.onClickHandler()}
+				className={this.setClassName()}
+				style={this.setVisibility()}
+			>
 				<FontAwesomeIcon className="popup-message-close" icon={faTimesCircle} />
-				<span className="popup-message">{display}</span>
+				<span className="popup-message">{this.setMessage()}</span>
 			</div>
 		);
 	}
