@@ -43,6 +43,7 @@
 }
 
 .fade-out {
+	padding: 0;
 	animation: fadeOut 0.5s;
 }
 
