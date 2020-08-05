@@ -1,8 +1,8 @@
 .rooms-list {
 	display: flex;
-	overflow-y: scroll;
+	overflow-y: auto;
 	flex-direction: column;
-	background-color: whitesmoke;
+	background-color: #1c1b1b;
 	flex-grow: 1;
 	padding: 3rem 3rem;
 }

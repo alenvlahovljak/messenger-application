@@ -8,11 +8,11 @@ import defaultAvatar from "../../public/images/default-avatar.png";
 
 const GlobalRoom = ({ joinGlobalRoom }) => {
 	return (
-		<div className="room" onClick={() => joinGlobalRoom()}>
+		<div className="global-room" onClick={() => joinGlobalRoom()}>
 			<Avatar src={defaultAvatar} size="6" />
-			<div className="room-info">
-				<span className="room-nick">Global Room</span>
-				<span className="room-message">
+			<div className="global-room-info">
+				<span className="global-room-nick">Global Room</span>
+				<span className="global-room-message">
 					Hy aleen you pice Hy aleen you pice Hy aleen you pice Hy aleen you pice
 				</span>
 			</div>

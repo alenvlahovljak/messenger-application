@@ -5,6 +5,11 @@ img {
 	border-radius: 50%;
 }
 
+img:hover {
+	box-sizing: border-box;
+	border: 2px solid white;
+}
+
 .avatar-upload {
 	display: none;
 }

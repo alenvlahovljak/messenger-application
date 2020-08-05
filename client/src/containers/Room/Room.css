@@ -1,13 +1,18 @@
 .room {
 	display: flex;
+	box-sizing: border-box;
+	border: 2px solid #707070;
 	margin-bottom: 1.5rem;
 	padding: 1rem;
 	justify-content: space-between;
-	background-color: rgb(241, 237, 237);
+	background-color: #1f1f1f;
+	animation: fadeInRoom 0.3s;
 }
 
 .room:hover {
 	cursor: pointer;
+	background-color: #1d77cd;
+	border-color: white;
 }
 
 .room-info {
@@ -20,10 +25,12 @@
 
 .room-nick {
 	font-size: 1.3rem;
+	color: white;
 }
 
 .room-message {
 	white-space: nowrap;
+	color: white;
 	width: 90%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -88,5 +95,16 @@
 	}
 	.room-message {
 		font-size: 1.5rem;
+	}
+}
+
+@keyframes fadeInRoom {
+	from {
+		width: 0.00001px;
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+		width: 100%;
 	}
 }

@@ -1,16 +1,13 @@
-import { SET_NEW_USER, GET_CURRENT_USER, SET_USER_AVATAR, GET_ALL_USERS_EXPECT_CURRENT } from "../actionTypes";
+import { SET_NEW_USER, SET_USER_AVATAR, GET_ALL_USERS_EXPECT_CURRENT } from "../actionTypes";
 
 const DEFAULT_STATE = {
-	user: {}
+	user: {},
+	users: []
 };
 
 export default (state = DEFAULT_STATE, action) => {
 	switch (action.type) {
 		case SET_NEW_USER:
-			return {
-				user: action.user
-			};
-		case GET_CURRENT_USER:
 			return {
 				user: action.user
 			};

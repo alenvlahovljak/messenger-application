@@ -1,7 +1,7 @@
 .popup-message-box {
 	justify-content: center;
 	align-items: center;
-	max-height: 8vh;
+	max-height: 15vh;
 	z-index: 10;
 	opacity: 0.8;
 	padding: 1rem 0;
@@ -31,13 +31,13 @@
 }
 
 .error {
-	height: 6vh;
+	height: 15vh;
 	background-color: #e7596c;
 	animation: fadeIn 0.3s;
 }
 
 .success {
-	height: 6vh;
+	height: 13vh;
 	background-color: green;
 	animation: fadeIn 0.3s;
 }
@@ -114,12 +114,11 @@
 
 @keyframes fadeIn {
 	from {
-		height: 0px;
-		opacity: 0.00001px;
+		max-height: 0.00001px;
+		opacity: 0;
 	}
 	to {
-		display: flex;
-		height: 6vh;
+		max-height: 15vh;
 		opacity: 0.8;
 	}
 }
@@ -127,10 +126,10 @@
 @keyframes fadeOut {
 	from {
 		opacity: 0.8;
-		height: 6vh;
+		max-height: 15vh;
 	}
 	to {
 		opacity: 0;
-		height: 0.00001px;
+		max-height: 0.00001px;
 	}
 }

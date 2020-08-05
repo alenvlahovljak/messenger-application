@@ -8,18 +8,37 @@ class Users {
 	}
 
 	addUser = async (_id, status, socketId) => {
-		return await db.User.findByIdAndUpdate(_id, { status, socketId }, { runValidators: true, new: true });
+		try {
+			return await db.User.findByIdAndUpdate(_id, { status, socketId }, { runValidators: true, new: true });
+		} catch (err) {
+			return "Unable to find user!";
+		}
 	};
+
 	getUserBySocketId = async (id) => {
-		return await db.User.findOne({ socketId: id });
+		try {
+			return await db.User.findOne({ socketId: id });
+		} catch (err) {
+			return "Unable to find user!";
+		}
 	};
-	getUserBySocketIdAndDisconnect = async (id) => {
-		const user = await (await db.User.findOne({ socketId: id })).deleteOne();
-		return user;
-	};
+
 	getUserListExpectCurrentUser = async (user) => {
-		const users = await db.User.find({ _id: { $nin: [user._id] }, status: "online" });
-		return users;
+		try {
+			return await db.User.find({ _id: { $nin: [user._id] }, status: "online" });
+		} catch (err) {
+			return [];
+		}
+	};
+
+	getUserBySocketIdAndDisconnect = async (id) => {
+		try {
+			const user = await db.User.findOne({ socketId: id });
+			await user.deleteOne();
+			return user;
+		} catch (err) {
+			return "Unable to find and delete user!";
+		}
 	};
 }
 

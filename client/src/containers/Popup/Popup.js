@@ -19,7 +19,6 @@ class Popup extends Component {
 	};
 
 	onAnimationEndHandler = () => {
-		console.log("ANIMATIOn");
 		const { fadeOut } = this.state;
 		const { removeError, removeInfoMessage } = this.props;
 		if (fadeOut) {

@@ -1,41 +1,265 @@
 .messages-box {
-	min-height: 40vh;
+	display: flex;
+	height: 40vh;
+	flex-direction: column;
+	overflow-y: auto;
+	align-items: center;
+	padding: 0rem 0;
+	flex-grow: 1;
+	background-color: #1c1b1b;
+}
+
+.messages-box-content {
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	margin: 1rem 0 0;
+	padding: 0.5rem;
+	font-size: 1.2rem;
+	background-color: #1c1b1b;
+}
+
+.messages-box-content span img {
+	margin-right: 0.5rem;
+}
+
+.messages-box-message {
+	padding: 1.5rem 1.2rem;
+	border-radius: 1rem;
+	border-bottom-left-radius: 0;
+	background-color: #3d3d3d;
+	color: #ffffff;
+}
+
+.messages-box-text {
+	line-height: 170%;
+	margin: 0;
+}
+
+.messages-box-time {
+	margin-top: 1rem;
+	display: inline-block;
+	color: #ffffff;
+}
+
+.messages-box-content.current-user {
+	flex-direction: row-reverse;
+}
+
+.messages-box-message.current-user {
+	border-radius: 2rem 2rem 0;
+}
+
+.messages-box-text.current-user {
+	background-color: #0f7be0;
+}
+
+.messages-box-input {
+	display: flex;
+	justify-content: center;
+	padding: 4rem 1rem 2rem;
+	width: 100%;
+	background-color: lawngreen;
+}
+
+.messages-box-input form {
+	display: block;
+	width: 100%;
+}
+
+.messages-box-input form textarea {
+	height: 4vh;
+	font-size: 1.2rem;
+	min-height: 1.3rem;
+	display: inline-block;
+	box-sizing: border-box;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	padding: 0.5rem 2rem;
+	border-radius: 2rem;
+	width: 100%;
+	overflow: hidden;
+	resize: none;
+	border: none;
+	display: inline-block;
+}
+
+.messages-box-input form textarea:hover {
 	background-color: white;
 }
 
-.messages-box-info {
-	display: flex;
-	justify-content: space-between;
-	font-size: 1.2rem;
-	background-color: whitesmoke;
+.messages-box-input form textarea:focus {
+	outline: none;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+::-webkit-scrollbar-track {
+	background: #2b2b2b;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1d77cd;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #0f7be0;
 }
 
 @media screen and (min-width: 320px) {
+	.messages-box {
+		padding: 0.5rem 0;
+	}
+
+	.messages-box-content {
+		padding: 0.7rem;
+		font-size: 1.3rem;
+	}
 }
 
 @media screen and (min-width: 360px) {
+	.messages-box {
+		padding: 0.7rem 0;
+	}
+
+	.messages-box-content {
+		padding: 0.8rem;
+	}
+
+	.messages-box-message {
+		padding: 1.2rem 1.2rem;
+	}
 }
 
 @media screen and (min-width: 480px) {
+	.messages-box {
+		padding: 1.1rem 0;
+	}
+
+	.messages-box-content {
+		margin: 1.2rem 0 0;
+		padding: 1rem;
+		font-size: 1.4rem;
+	}
+
+	.messages-box-content span img {
+		height: 3.7rem;
+		width: 3.7rem;
+		margin-right: 1rem;
+	}
+
+	.messages-box-message {
+		padding: 1.2rem 1.5rem;
+	}
+
+	::-webkit-scrollbar {
+		display: block;
+		width: 1rem;
+	}
 }
 
 @media screen and (min-width: 520px) {
+	.messages-box {
+		padding: 1.4rem 0;
+	}
+
+	.messages-box-content {
+		padding: 1rem 1.2rem;
+	}
+
+	.messages-box-content span img {
+		height: 3.8rem;
+		width: 3.8rem;
+	}
+
+	.messages-box-message {
+		padding: 1.4rem 1.8rem;
+	}
 }
 
 @media screen and (min-width: 600px) {
+	.messages-box {
+		padding: 1.3rem 0;
+	}
+
+	.messages-box-content {
+		padding: 1rem 1.3rem;
+	}
+
+	.messages-box-content span img {
+		height: 3.9rem;
+		width: 3.9rem;
+	}
+
+	.messages-box-message {
+		padding: 1.4rem 2rem;
+	}
 }
 
 @media screen and (min-width: 720px) {
+	.messages-box-content {
+		padding: 1rem 1.4rem;
+		font-size: 1.5rem;
+	}
+
+	.messages-box-content span img {
+		height: 4rem;
+		width: 4rem;
+		margin-right: 1.2rem;
+	}
+
+	::-webkit-scrollbar {
+		width: 1.2rem;
+	}
 }
 
 @media screen and (min-width: 800px) {
+	.messages-box-content {
+		padding: 1.2rem 1.6rem;
+	}
 }
 
 @media screen and (min-width: 1024px) {
+	.messages-box-content {
+		padding: 1.2rem 2rem;
+		font-size: 1.6rem;
+	}
+
+	.messages-box-content span img {
+		height: 4.2rem;
+		width: 4.2rem;
+		margin-right: 1.4rem;
+	}
+
+	::-webkit-scrollbar {
+		width: 1.4rem;
+	}
 }
 
 @media screen and (min-width: 1280px) {
+	.messages-box-content span img {
+		height: 4.4rem;
+		width: 4.4rem;
+	}
+
+	.messages-box-message {
+		padding: 1.4rem 2.5rem;
+	}
 }
 
 @media screen and (min-width: 1366px) {
+	.messages-box-content span img {
+		height: 4.5rem;
+		width: 4.5rem;
+		margin-right: 1.5rem;
+	}
+
+	.messages-box-message {
+		padding: 1.4rem 2.8rem;
+	}
+
+	::-webkit-scrollbar {
+		width: 1.6rem;
+	}
 }

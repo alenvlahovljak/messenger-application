@@ -10,6 +10,7 @@ import {
 } from "../../store/actions";
 
 import ActiveUser from "../ActiveUser/ActiveUser";
+import { Loader } from "../../components/Animations";
 
 import "./ActiveUsersList.css";
 
@@ -21,19 +22,21 @@ class ActiveUsersList extends Component {
 	componentDidMount = () => {
 		const { user, getAllUsersExpectCurrent, addError, removeError, addInfoMessage, removeInfoMessage } = this.props;
 		const socket = io.connect();
-		socket.emit("allUsersExpectCurrent", user, (users) => {
-			if (!Array.isArray(users)) {
+		socket.emit("currentUser", user, (err) => {
+			if (err?.length > 0) {
 				removeInfoMessage();
-				addError("Someting went wrong, refresh your browser!");
+				addError(err);
 			}
 			removeError();
-			getAllUsersExpectCurrent(users);
+		});
+		socket.on("activeUsers", async (users) => {
+			if (users?.length > 0) getAllUsersExpectCurrent(users);
 		});
 	};
 
 	render() {
 		const { users = [] } = this.props;
-		const activeUsers = users.map((user) => (
+		const activeUsersList = users.map((user) => (
 			<ActiveUser
 				{...this.props}
 				key={user._id}
@@ -44,7 +47,7 @@ class ActiveUsersList extends Component {
 				updatedAt={user.updatedAt}
 			/>
 		));
-		return <div className="active-users-list">{activeUsers}</div>;
+		return <div className="active-users-list">{activeUsersList.length == 0 ? <Loader /> : activeUsersList}</div>;
 	}
 }
 

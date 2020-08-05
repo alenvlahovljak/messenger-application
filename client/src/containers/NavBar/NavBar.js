@@ -10,10 +10,10 @@ class NavBar extends Component {
 	render() {
 		return (
 			<nav className="nav">
-				<NavLink activeStyle={{ backgroundColor: "palevioletred" }} to="/active-users" className="nav-icon">
+				<NavLink activeStyle={{ backgroundColor: "#1D77CD" }} to="/active-users" className="nav-icon">
 					<FontAwesomeIcon icon={faUser} />
 				</NavLink>
-				<NavLink activeStyle={{ backgroundColor: "palevioletred" }} to="/rooms" className="nav-icon">
+				<NavLink activeStyle={{ backgroundColor: "#1D77CD" }} to="/rooms" className="nav-icon">
 					<FontAwesomeIcon icon={faComment} />
 				</NavLink>
 			</nav>

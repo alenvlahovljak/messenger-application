@@ -1,19 +1,11 @@
-import { apiCall, apiCallAsync, createUserAPI, setAvatarAPI } from "../../services/api";
+import { createUserAPI } from "../../services/api";
 import { addError, removeError } from "./errors";
 import { removeInfoMessage } from "./infoMessages";
 import * as actionTypes from "../actionTypes";
-import { connect } from "react-redux";
 
 export const handleCreateUser = (user) => {
 	return {
 		type: actionTypes.SET_NEW_USER,
-		user
-	};
-};
-
-export const handleGetUser = (user) => {
-	return {
-		type: actionTypes.GET_CURRENT_USER,
 		user
 	};
 };
@@ -35,24 +27,6 @@ export const createUser = (data) => {
 			dispatch(removeInfoMessage());
 			dispatch(addError(err.response));
 		}
-	};
-};
-
-export const getUser = ({ _id }) => {
-	return (dispatch) => {
-		return new Promise((resolve, reject) => {
-			return apiCall("GET", `/users/${_id}`)
-				.then((user) => {
-					dispatch(getUser(user));
-					dispatch(removeError());
-					resolve();
-				})
-				.catch((err) => {
-					dispatch(removeInfoMessage());
-					dispatch(addError(err));
-					reject();
-				});
-		});
 	};
 };
 

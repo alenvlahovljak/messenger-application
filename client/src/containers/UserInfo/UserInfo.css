@@ -2,16 +2,17 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	background-color: #574cac;
+	background-color: #1f1f1f;
 	padding: 0.5rem;
 }
 
 .user-backward {
 	font-size: 1.2rem;
 	margin-right: auto;
-	color: white;
+	color: #ffffff;
 	padding: 0 1.5rem;
 	display: block;
+	animation: fadeInBackward 1s;
 }
 
 .user-username {
@@ -110,4 +111,13 @@
 }
 
 @media screen and (min-width: 1366px) {
+}
+
+@keyframes fadeInBackward {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

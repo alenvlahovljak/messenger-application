@@ -27,7 +27,6 @@ const { usersRoutes } = require("./routes");
 
 //require database
 const db = require("./models");
-const { join } = require("path");
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -63,27 +62,31 @@ io.on("connection", (socket) => {
 			if (user._id == undefined) {
 				return cb("Cannot obtain user, please refresh your browser!");
 			}
-			await usersIO.addUser(user._id, USER_STATUS.ONLINE, socket.id);
+			user = await usersIO.addUser(user._id, USER_STATUS.ONLINE, socket.id);
 			socket.emit("newUser", `Welcome ${user.username}!`);
 			socket.broadcast.emit("newUser", `${user.username} has joined the chat!`);
 			cb();
 		} catch (err) {
-			cb(err);
+			cb("Unable to find user!");
 		}
 	});
 
 	//get all users expect current user
-	socket.on("allUsersExpectCurrent", async (user, cb) => {
+	socket.on("currentUser", async (user, cb) => {
 		try {
 			if (user._id == undefined) {
 				return cb("Cannot obtain user, please refresh your browser!");
 			}
 			const users = await usersIO.getUserListExpectCurrentUser(user);
-			cb(users);
+			socket.emit("activeUsers", users);
+			cb();
 		} catch (err) {
-			cb(err);
+			cb("Unable to obtain users!");
 		}
 	});
+
+	//emit all users
+	socket.emit("activeUsers");
 
 	//join room
 	socket.on("joinRoom", (user, cb) => {
@@ -114,9 +117,16 @@ io.on("connection", (socket) => {
 
 	//user disconnect from application
 	socket.on("disconnect", async () => {
-		const user = await usersIO.getUserBySocketIdAndDisconnect(socket.id);
-		socket.broadcast.emit("disconnectedUser", `${user.username} disconnected!`);
-		console.log(`${user.username} disconnected!`);
+		try {
+			const user = await usersIO.getUserBySocketIdAndDisconnect(socket.id);
+			socket.broadcast.emit("disconnectedUser", `${user.username} disconnected!`);
+			console.log(`${user.username} disconnected!`);
+		} catch (err) {
+			socket.broadcast.emit(
+				"disconnectedUser",
+				`There was a problem with server! Refresh your application, please.`
+			);
+		}
 	});
 });
 
