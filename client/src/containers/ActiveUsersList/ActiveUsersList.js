@@ -17,25 +17,13 @@ import "./ActiveUsersList.css";
 class ActiveUsersList extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			users: this.props.users
+		};
 	}
 
-	componentDidMount = () => {
-		const { user, getAllUsersExpectCurrent, addError, removeError, addInfoMessage, removeInfoMessage } = this.props;
-		const socket = io.connect();
-		socket.emit("currentUser", user, (err) => {
-			if (err?.length > 0) {
-				removeInfoMessage();
-				addError(err);
-			}
-			removeError();
-		});
-		socket.on("activeUsers", async (users) => {
-			if (users?.length > 0) getAllUsersExpectCurrent(users);
-		});
-	};
-
 	render() {
-		const { users = [] } = this.props;
+		const { users = [] } = this.state;
 		const activeUsersList = users.map((user) => (
 			<ActiveUser
 				{...this.props}
@@ -53,7 +41,7 @@ class ActiveUsersList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.user,
+		user: state.users.currentUser,
 		users: state.users.users
 	};
 };

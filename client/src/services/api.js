@@ -8,6 +8,14 @@ export const createUserAPI = (method, url, data) => {
 	});
 };
 
+export const setUserSocketIdAPI = (method, url, data) => {
+	return axios({
+		method,
+		url,
+		data
+	});
+};
+
 export const setAvatarAPI = (method, url, data) => {
 	return axios({
 		method,

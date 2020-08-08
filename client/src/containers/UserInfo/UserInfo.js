@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import { connect } from "react-redux";
 
-import { addError, removeError, addInfoMessage, removeInfoMessage } from "../../store/actions";
+import { addError, removeError, addInfoMessage, removeInfoMessage, setCurrentRoom } from "../../store/actions";
 
 import { Avatar } from "../../components/UI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,7 +28,7 @@ class UserInfo extends Component {
 	};
 
 	render() {
-		const { user, history, match } = this.props;
+		const { user, room, history, match } = this.props;
 		return (
 			<header className="user-info">
 				{match.params.id_2 && (
@@ -37,22 +37,23 @@ class UserInfo extends Component {
 						onClick={() => {
 							history.goBack();
 							this.leaveRoom(match.params.id_2);
+							this.props.setCurrentRoom(user);
 						}}
 					>
 						<FontAwesomeIcon icon={faBackward} />
 					</span>
 				)}
 
-				{user._id ? (
-					<span className="user-username">{user.username}</span>
+				{room._id ? (
+					<span className="user-username">{room.username}</span>
 				) : (
 					<span className="user-username">Unknow</span>
 				)}
 
 				<Avatar
 					upload
-					src={user.avatar && `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}`}
-					alt={user.username}
+					src={room.avatar && `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}`}
+					alt={room.username}
 				/>
 			</header>
 		);
@@ -61,8 +62,11 @@ class UserInfo extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.user
+		user: state.users.currentUser,
+		room: state.rooms.room
 	};
 };
 
-export default connect(mapStateToProps, { addError, removeError, addInfoMessage, removeInfoMessage })(UserInfo);
+export default connect(mapStateToProps, { addError, removeError, addInfoMessage, removeInfoMessage, setCurrentRoom })(
+	UserInfo
+);

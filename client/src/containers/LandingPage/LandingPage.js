@@ -72,7 +72,7 @@ class LandingPage extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.user,
+		user: state.users.currentUser,
 		error: state.errors.err
 	};
 };

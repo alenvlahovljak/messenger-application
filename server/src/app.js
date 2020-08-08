@@ -23,10 +23,12 @@ const { Users } = require("./utils/users");
 const { errorHandler } = require("./controllers/errors");
 
 //require routes
-const { usersRoutes } = require("./routes");
+const { usersRoutes, roomsRoutes } = require("./routes");
 
 //require database
 const db = require("./models");
+const user = require("./middleware/user");
+const users = require("./utils/users");
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -50,82 +52,28 @@ app.use("/messenger/avatars", express.static(path.join(__dirname, "../public/sto
 
 //use routes
 app.use("/users", usersRoutes);
+app.use("/rooms", roomsRoutes);
 
-//configure sockets
-io.on("connection", (socket) => {
-	const usersIO = new Users();
-	console.log("New user connected!");
+io.on("connect", (socket) => {
+	console.log("New socket connected!");
 
-	//new user join chat application
-	socket.on("join", async (user, cb) => {
+	socket.on("joinGlobalRoom", (user, cb) => {
 		try {
-			if (user._id == undefined) {
-				return cb("Cannot obtain user, please refresh your browser!");
-			}
-			user = await usersIO.addUser(user._id, USER_STATUS.ONLINE, socket.id);
-			socket.emit("newUser", `Welcome ${user.username}!`);
-			socket.broadcast.emit("newUser", `${user.username} has joined the chat!`);
-			cb();
-		} catch (err) {
-			cb("Unable to find user!");
-		}
-	});
-
-	//get all users expect current user
-	socket.on("currentUser", async (user, cb) => {
-		try {
-			if (user._id == undefined) {
-				return cb("Cannot obtain user, please refresh your browser!");
-			}
-			const users = await usersIO.getUserListExpectCurrentUser(user);
-			socket.emit("activeUsers", users);
-			cb();
-		} catch (err) {
-			cb("Unable to obtain users!");
-		}
-	});
-
-	//emit all users
-	socket.emit("activeUsers");
-
-	//join room
-	socket.on("joinRoom", (user, cb) => {
-		try {
-			if (user._id == undefined) {
-				return cb("Cannot obtain user, please refresh your browser!");
-			}
 			socket.join("global");
-			socket.emit("newUser", `Welcome ${user.username} to Global Room!`);
-			socket.to("global").emit("newUser", `${user.username} has joined the Global Room!`);
+			socket.emit("info", "Welcome to global room!");
+			socket.broadcast.to("global").emit("info", `${user.username} has joined global room!`);
 			cb();
 		} catch (err) {
-			cb(err);
+			cb("Unable to join global room!");
 		}
 	});
 
-	//disconnect from room
-	socket.on("leaveRoom", async (obj, cb) => {
+	socket.on("sendMessageToGlobalRoom", (message, cb) => {
 		try {
-			if (obj.user._id == undefined) {
-				return cb("Cannot obtain user, please refresh your browser!");
-			}
-			socket.to(obj.room).emit("disconnectedUser", `${obj.user.username} disconected ${obj.room} room!`);
+			io.to("global").emit("messageToRoom", message);
+			cb();
 		} catch (err) {
-			cb(err);
-		}
-	});
-
-	//user disconnect from application
-	socket.on("disconnect", async () => {
-		try {
-			const user = await usersIO.getUserBySocketIdAndDisconnect(socket.id);
-			socket.broadcast.emit("disconnectedUser", `${user.username} disconnected!`);
-			console.log(`${user.username} disconnected!`);
-		} catch (err) {
-			socket.broadcast.emit(
-				"disconnectedUser",
-				`There was a problem with server! Refresh your application, please.`
-			);
+			cb("Unable to send message!");
 		}
 	});
 });

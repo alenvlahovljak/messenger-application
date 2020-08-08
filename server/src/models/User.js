@@ -32,7 +32,6 @@ const userSchema = new mongoose.Schema(
 //define static method for JSON response
 userSchema.methods.toJSON = function () {
 	const user = this.toObject();
-	delete user.socketId;
 	delete user.__v;
 	return user;
 };

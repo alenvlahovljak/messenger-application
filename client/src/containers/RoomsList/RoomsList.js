@@ -13,31 +13,11 @@ class RoomsList extends Component {
 		super(props);
 	}
 
-	joinGlobalRoom = () => {
-		const { user, history, addError, removeError, addInfoMessage, removeInfoMessage } = this.props;
-		const socket = io.connect();
-		socket.emit("joinRoom", user, (err) => {
-			if (err?.length > 0) {
-				removeInfoMessage();
-				addError(err);
-			}
-			removeError();
-		});
-		history.push("/rooms/global");
-		socket.on("newUser", (msg) => {
-			removeError();
-			addInfoMessage(msg);
-		});
-		socket.on("disconnectedUser", (msg) => {
-			removeError();
-			addInfoMessage(msg);
-		});
-	};
-
 	render() {
+		const { joinGlobalRoom } = this.props;
 		return (
 			<div className="rooms-list">
-				<GlobalRoom joinGlobalRoom={this.joinGlobalRoom} />
+				<GlobalRoom joinGlobalRoom={joinGlobalRoom} />
 				<Room />
 				<Room />
 			</div>
@@ -47,7 +27,7 @@ class RoomsList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.user
+		user: state.users.currentUser
 	};
 };
 

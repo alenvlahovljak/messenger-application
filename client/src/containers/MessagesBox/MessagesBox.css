@@ -48,9 +48,6 @@
 
 .messages-box-message.current-user {
 	border-radius: 2rem 2rem 0;
-}
-
-.messages-box-text.current-user {
 	background-color: #0f7be0;
 }
 
