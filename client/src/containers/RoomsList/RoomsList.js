@@ -27,7 +27,8 @@ class RoomsList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.currentUser
+		user: state.users.currentUser,
+		messages: state.messages
 	};
 };
 

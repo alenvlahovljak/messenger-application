@@ -22,7 +22,6 @@ import { UserInfo } from "../../components/UI";
 import Popup from "../Popup/Popup";
 
 import "./Messenger.css";
-import messages from "../../store/reducers/messages";
 
 class Messenger extends Component {
 	constructor(props) {
@@ -65,9 +64,9 @@ class Messenger extends Component {
 
 	leaveGlobalRoom = () => {};
 
-	sendMessageToGlobalRoom = (message) => {
+	sendMessage = (message) => {
 		const { socket } = this.state;
-		socket.emit("sendMessageToGlobalRoom", message, (err) => {
+		socket.emit("sendMessage", message, (err) => {
 			if (err?.length > 0) {
 				removeInfoMessage();
 				return addError(err);
@@ -91,7 +90,7 @@ class Messenger extends Component {
 					<Route
 						exact
 						path="/rooms/:room_id"
-						render={(props) => <MessagesBox {...props} sendMessageToGlobalRoom={this.sendMessageToGlobalRoom} />}
+						render={(props) => <MessagesBox {...props} sendMessage={this.sendMessage} />}
 					/>
 					{/*Add for other routes */}
 					<NavBar />

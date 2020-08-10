@@ -1,43 +1,115 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import moment from "moment";
+import { animateScroll } from "react-scroll";
+import TextareaAutosize from "react-textarea-autosize";
 
 import Messages from "../Messages/Messages";
 
 import "./MessagesBox.css";
 
+import moment from "moment";
+
+import Avatar from "../Avatar/Avatar";
+
+const CurrentUserMessage = ({ text, timestamp }) => {
+	timestamp = moment(timestamp).format("LT");
+	return (
+		<div className="messages-box-content current-user">
+			<div className="messages-box-message current-user">
+				<p className="messages-box-text">{text}</p>
+				<span className="messages-box-time">{timestamp}</span>
+			</div>
+		</div>
+	);
+};
+
+const OtherUserMessage = ({ from, text, timestamp }) => {
+	timestamp = moment(timestamp).format("LT");
+	return (
+		<div className="messages-box-content">
+			<Avatar />
+			<div className="message-box-info">
+				<span className="messages-box-username">{from.username}</span>
+				<div className="messages-box-message">
+					<p className="messages-box-text">{text}</p>
+					<span className="messages-box-time">{timestamp}</span>
+				</div>
+			</div>
+		</div>
+	);
+};
+
 class MessagesBox extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			message: ""
+			message: "",
+			disabled: false
 		};
 	}
 
+	componentDidMount = () => {
+		this.scrollToBottom();
+	};
+
+	componentDidUpdate = (prevProps) => {
+		const { disabled } = this.state;
+		const { messages } = this.props;
+		if (prevProps.messages.length != messages.length) {
+			this.scrollToBottom();
+			this.setState({ disabled: false }, () => {
+				this.formRef.childNodes[0].focus();
+			});
+		}
+	};
+
 	onEnterPress = (e) => {
-		const { message } = this.state;
-		const { match, sendMessageToGlobalRoom, user } = this.props;
+		const { message, disabled } = this.state;
+		const { match, sendMessage, user } = this.props;
 		console.log("STREAMING");
 		if (e.keyCode == 13 && e.shiftKey == false && message.trim().length > 0) {
 			e.preventDefault();
-			sendMessageToGlobalRoom({
+			sendMessage({
 				text: message.trim(),
 				to: match.params.room_id,
 				from: user,
 				timestamp: Date.now()
 			});
-			this.setState({ message: "" });
+			this.setState({ message: "", disabled: true });
 		}
 	};
 
+	scrollToBottom = () => {
+		animateScroll.scrollToBottom({
+			duration: 500,
+			delay: 100,
+			smooth: true,
+			containerId: "messages"
+		});
+	};
+
 	render() {
+		const { disabled } = this.state;
+		const { user, messages } = this.props;
 		return (
 			<div className="messages-box">
-				<Messages />
+				<div id="messages" ref={(scroll) => (this.toBottom = scroll)} className="messages-box-chat">
+					{messages.map(({ text, from, timestamp }) =>
+						from.username == user.username ? (
+							<CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />
+						) : (
+							<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} />
+						)
+					)}
+				</div>
 				<div className="messages-box-input">
 					<form ref={(f) => (this.formRef = f)}>
-						<textarea
+						<TextareaAutosize
+							placeholder={"Type your message"}
+							maxRows={3}
+							className="messages-box-textarea"
+							autoFocus
+							disabled={disabled}
 							onKeyDown={this.onEnterPress}
 							onChange={(e) => this.setState({ message: e.target.value })}
 							value={this.state.message}

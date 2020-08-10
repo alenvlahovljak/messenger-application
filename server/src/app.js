@@ -68,7 +68,7 @@ io.on("connect", (socket) => {
 		}
 	});
 
-	socket.on("sendMessageToGlobalRoom", (message, cb) => {
+	socket.on("sendMessage", (message, cb) => {
 		try {
 			io.to("global").emit("messageToRoom", message);
 			cb();

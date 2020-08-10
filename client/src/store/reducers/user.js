@@ -17,7 +17,7 @@ export default (state = DEFAULT_STATE, action) => {
 			};
 		case SET_USER_AVATAR:
 			return {
-				user: action.user
+				currentUser: action.user
 			};
 		case GET_ALL_USERS_EXPECT_CURRENT:
 			return {

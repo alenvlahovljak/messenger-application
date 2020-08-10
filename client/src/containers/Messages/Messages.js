@@ -17,7 +17,7 @@ const CurrentUserMessage = ({ text, timestamp }) => {
 	);
 };
 
-const OtherUserMessage = ({ text, timestamp }) => {
+const OtherUserMessage = ({ from, text, timestamp }) => {
 	timestamp = moment(timestamp).format("LT");
 	return (
 		<div className="messages-box-content">
