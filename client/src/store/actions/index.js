@@ -1,4 +1,4 @@
-export { createUser, setUserSocketId, setAvatar, getAllUsersExpectCurrent } from "./user";
+export { createUser, setUserSocketId, setAvatar, activeUsers, addActiveUser, removeActiveUser } from "./user";
 export { newMessage } from "./messages";
 
 export { addError, removeError } from "./errors";

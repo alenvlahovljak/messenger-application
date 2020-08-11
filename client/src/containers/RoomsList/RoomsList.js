@@ -14,12 +14,16 @@ class RoomsList extends Component {
 	}
 
 	render() {
-		const { joinGlobalRoom } = this.props;
+		const { joinGlobalRoom, joinRoom, rooms, messages } = this.props;
+		const lastMessage = messages.filter(
+			(message, i, messages) => message.to == "global" && i == messages.length - 1 && message
+		)[0];
 		return (
 			<div className="rooms-list">
-				<GlobalRoom joinGlobalRoom={joinGlobalRoom} />
-				<Room />
-				<Room />
+				<GlobalRoom lastMessage={lastMessage} joinGlobalRoom={joinGlobalRoom} />
+				{rooms.map((room) => (
+					<Room key={room.to._id} room={room} />
+				))}
 			</div>
 		);
 	}
@@ -28,7 +32,8 @@ class RoomsList extends Component {
 const mapStateToProps = (state) => {
 	return {
 		user: state.users.currentUser,
-		messages: state.messages
+		messages: state.messages,
+		rooms: state.rooms.rooms
 	};
 };
 

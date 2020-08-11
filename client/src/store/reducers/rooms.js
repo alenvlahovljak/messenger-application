@@ -1,19 +1,28 @@
-import { SET_NEW_ROOM, SET_CURRENT_ROOM } from "../actionTypes";
+import { CREATE_ROOM, SET_CURRENT_ROOM } from "../actionTypes";
 
 const DEFAULT_STATE = {
-	room: {},
+	currentRoom: {},
 	rooms: []
 };
 
 export default (state = DEFAULT_STATE, action) => {
 	switch (action.type) {
-		case SET_NEW_ROOM:
+		case CREATE_ROOM:
+			const rooms = state.rooms.slice();
+			const isDuplicate = rooms.some(
+				(room) => room.from._id == action.room.from._id && room.to._id == action.room.to._id
+			);
+			if (!isDuplicate) {
+				rooms.push({ ...action.room });
+			}
 			return {
-				rooms: [...state.rooms, action.room]
+				...state,
+				rooms
 			};
 		case SET_CURRENT_ROOM:
 			return {
-				room: action.room
+				...state,
+				currentRoom: action.room
 			};
 		default:
 			return state;

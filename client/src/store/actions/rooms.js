@@ -5,19 +5,22 @@ import * as actionTypes from "../actionTypes";
 
 export const handleCreateRoom = (room) => {
 	return {
-		type: actionTypes.SET_NEW_ROOM,
+		type: actionTypes.CREATE_ROOM,
 		room
 	};
 };
 
-export const createRoom = (data) => {
+export const createRoom = (save, data) => {
 	return async (dispatch) => {
 		try {
-			const room = await createRoomAPI("POST", "/rooms", data);
-			dispatch(removeInfoMessage());
-			dispatch(removeError());
-			dispatch(handleCreateRoom(room.data));
-			return room;
+			if (save) {
+				const room = await createRoomAPI("POST", "/rooms", data);
+				dispatch(handleCreateRoom(room.data));
+				dispatch(setCurrentRoom(room));
+			} else {
+				dispatch(handleCreateRoom(data));
+				dispatch(setCurrentRoom(data.to));
+			}
 		} catch (err) {
 			dispatch(removeInfoMessage());
 			dispatch(addError(err.response));

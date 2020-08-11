@@ -15,18 +15,6 @@ class UserInfo extends Component {
 		super(props);
 	}
 
-	leaveRoom = (room) => {
-		const { user } = this.props;
-		const socket = io.connect();
-		socket.emit("leaveRoom", { user, room }, (err) => {
-			if (err?.length > 0) {
-				removeInfoMessage();
-				return addError(err);
-			}
-			removeError();
-		});
-	};
-
 	render() {
 		const { user, room, history, match } = this.props;
 		return (
@@ -36,7 +24,6 @@ class UserInfo extends Component {
 						className="user-backward"
 						onClick={() => {
 							history.goBack();
-							this.leaveRoom(match.params.id_2);
 							this.props.setCurrentRoom(user);
 						}}
 					>
@@ -52,7 +39,7 @@ class UserInfo extends Component {
 
 				<Avatar
 					upload
-					src={room.avatar && `http://localhost:8000/messenger/${user.avatar.path}?${Date.now()}`}
+					src={room.avatar && `http://localhost:8000/messenger/${room.avatar.path}?${Date.now()}`}
 					alt={room.username}
 				/>
 			</header>
@@ -63,7 +50,7 @@ class UserInfo extends Component {
 const mapStateToProps = (state) => {
 	return {
 		user: state.users.currentUser,
-		room: state.rooms.room
+		room: state.rooms.currentRoom
 	};
 };
 

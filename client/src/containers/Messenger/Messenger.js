@@ -6,7 +6,10 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import {
 	setUserSocketId,
-	getAllUsersExpectCurrent,
+	createRoom,
+	activeUsers,
+	addActiveUser,
+	removeActiveUser,
 	newMessage,
 	addError,
 	removeError,
@@ -32,12 +35,40 @@ class Messenger extends Component {
 	}
 
 	componentDidMount = () => {
-		const { match, setUserSocketId, newMessage, addInfoMessage, user } = this.props;
+		const {
+			match,
+			setUserSocketId,
+			newMessage,
+			addInfoMessage,
+			user,
+			activeUsers,
+			addActiveUser,
+			removeActiveUser
+		} = this.props;
 		const { socket } = this.state;
+
+		activeUsers(user);
 
 		socket.on("connect", () => {
 			console.log(socket.connected); // true
 			setUserSocketId({ ...user, socketId: socket.id });
+
+			socket.emit("addUser", { ...user, status: "online", socketId: socket.id }, (err) => {
+				if (err?.length > 0) {
+					removeInfoMessage();
+					return addError(err);
+				}
+				removeError();
+			});
+		});
+
+		socket.on("removeUser", (socketId) => {
+			console.log("disconnect", socketId);
+			removeActiveUser(socketId);
+		});
+
+		socket.on("user", (user) => {
+			addActiveUser(user);
 		});
 
 		socket.on("info", (msg) => {
@@ -45,13 +76,23 @@ class Messenger extends Component {
 		});
 
 		socket.on("messageToRoom", (message) => {
-			newMessage(false, message);
+			const { createRoom } = this.props;
+			console.log("messageTORoom", message);
+			if (message.save) {
+				newMessage(false, message);
+			} else {
+				createRoom(false, { from: message.from, to: message.to });
+				newMessage(false, message);
+			}
 		});
+	};
+
+	getAllActiveUsers = () => {
+		console.log("HELLo");
 	};
 
 	joinGlobalRoom = () => {
 		const { socket } = this.state;
-		this.setState({ isSent: false });
 		const { history, user } = this.props;
 		socket.emit("joinGlobalRoom", user, (err) => {
 			if (err?.length > 0) {
@@ -61,8 +102,6 @@ class Messenger extends Component {
 		});
 		history.push("/rooms/global");
 	};
-
-	leaveGlobalRoom = () => {};
 
 	sendMessage = (message) => {
 		const { socket } = this.state;
@@ -75,13 +114,22 @@ class Messenger extends Component {
 		});
 	};
 
+	componentWillUnmount = () => {
+		const { socket } = this.state;
+		socket.close();
+	};
+
 	render() {
 		return (
 			<main className="main">
 				<Popup />
 				<div className="messenger-box">
 					<UserInfo {...this.props} />
-					<Route exact path="/active-users" render={(props) => <ActiveUsersList {...props} />} />
+					<Route
+						exact
+						path="/active-users"
+						render={(props) => <ActiveUsersList {...props} getAllActiveUsers={this.getAllActiveUsers} />}
+					/>
 					<Route
 						exact
 						path="/rooms"
@@ -105,13 +153,17 @@ const mapStateToProps = (state) => {
 		error: state.errors.err,
 		infoMsg: state.infoMessages.infoMsg,
 		user: state.users.currentUser,
-		messages: state.messages
+		messages: state.messages,
+		room: state.rooms.currentRoom
 	};
 };
 
 export default connect(mapStateToProps, {
 	setUserSocketId,
-	getAllUsersExpectCurrent,
+	createRoom,
+	activeUsers,
+	addActiveUser,
+	removeActiveUser,
 	newMessage,
 	addError,
 	removeError,

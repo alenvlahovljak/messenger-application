@@ -23,13 +23,13 @@ const CurrentUserMessage = ({ text, timestamp }) => {
 	);
 };
 
-const OtherUserMessage = ({ from, text, timestamp }) => {
+const OtherUserMessage = ({ from, to, text, timestamp }) => {
 	timestamp = moment(timestamp).format("LT");
 	return (
 		<div className="messages-box-content">
 			<Avatar />
 			<div className="message-box-info">
-				<span className="messages-box-username">{from.username}</span>
+				{to._id == "global" && <span className="messages-box-username">{from.username}</span>}
 				<div className="messages-box-message">
 					<p className="messages-box-text">{text}</p>
 					<span className="messages-box-time">{timestamp}</span>
@@ -65,13 +65,13 @@ class MessagesBox extends Component {
 
 	onEnterPress = (e) => {
 		const { message, disabled } = this.state;
-		const { match, sendMessage, user } = this.props;
-		console.log("STREAMING");
+		const { match, sendMessage, user, room } = this.props;
 		if (e.keyCode == 13 && e.shiftKey == false && message.trim().length > 0) {
 			e.preventDefault();
 			sendMessage({
+				save: match.params.room_id == "global" ? true : false,
 				text: message.trim(),
-				to: match.params.room_id,
+				to: match.params.room_id == "global" ? { _id: "global" } : room,
 				from: user,
 				timestamp: Date.now()
 			});
@@ -90,17 +90,19 @@ class MessagesBox extends Component {
 
 	render() {
 		const { disabled } = this.state;
-		const { user, messages } = this.props;
+		const { match, user, messages } = this.props;
 		return (
 			<div className="messages-box">
 				<div id="messages" ref={(scroll) => (this.toBottom = scroll)} className="messages-box-chat">
-					{messages.map(({ text, from, timestamp }) =>
-						from.username == user.username ? (
+					{messages.map(({ text, from, to, timestamp }) => {
+						console.log("MATCH", match.params.room_id, to._id);
+
+						return from.username == user.username ? (
 							<CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />
 						) : (
-							<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} />
-						)
-					)}
+							<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />
+						);
+					})}
 				</div>
 				<div className="messages-box-input">
 					<form ref={(f) => (this.formRef = f)}>
@@ -124,7 +126,8 @@ class MessagesBox extends Component {
 const mapStateToProps = (state) => {
 	return {
 		user: state.users.currentUser,
-		messages: state.messages
+		messages: state.messages,
+		room: state.rooms.currentRoom
 	};
 };
 

@@ -14,13 +14,15 @@ const { isValidUser } = require("../middleware/user");
 const { avatar } = require("../utils/index");
 
 //require users' controllers
-const { createUser, setUserSocketId } = require("../controllers/users");
+const { createUser, indexUsers, setUserSocketId, deleteUser } = require("../controllers/users");
 
 //require users' avatar controllers
 const { createAvatar, deleteAvatar } = require("../controllers/avatar");
 
 //define users' routes
 router.route("/").post(createUser);
+router.route("/").get(indexUsers);
+router.route("/:user_id").delete(deleteUser);
 router.route("/:user_id/socket").patch(setUserSocketId);
 
 //define user's avatar routes

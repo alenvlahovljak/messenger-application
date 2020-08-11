@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
 
-import { setCurrentRoom } from "../../store/actions";
-
-import { Avatar } from "../../components/UI";
+import { createRoom } from "../../store/actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { Avatar } from "../../components/UI";
 
 import "./ActiveUser.css";
 
@@ -19,13 +17,13 @@ class ActiveUser extends Component {
 	}
 
 	onClickHandler = async () => {
-		const { history, setCurrentRoom, _id, username, avatar } = this.props;
-		setCurrentRoom({ _id, username, avatar });
-		history.push(`/rooms/${_id}`);
+		const { history, createRoom, currentUser, user } = this.props;
+		createRoom(false, { from: currentUser, to: user });
+		history.push(`/rooms/${user._id}`);
 	};
 
 	render() {
-		const { username, avatar, status, updatedAt } = this.props;
+		const { username, avatar } = this.props.user;
 		return (
 			<div onClick={() => this.onClickHandler()} className="active-user">
 				<Avatar
@@ -35,8 +33,7 @@ class ActiveUser extends Component {
 					<span className="active-user-nick">{username}</span>
 					<span className="active-user-activity">
 						<FontAwesomeIcon icon={faClock} />
-						&nbsp;&nbsp;&nbsp;
-						{status == "online" ? status : moment(updatedAt).startOf("hour").fromNow()}
+						&nbsp;&nbsp;&nbsp; online
 					</span>
 				</div>
 			</div>
@@ -46,8 +43,8 @@ class ActiveUser extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.users.currentUser
+		currentUser: state.users.currentUser
 	};
 };
 
-export default connect(mapStateToProps, { setCurrentRoom })(ActiveUser);
+export default connect(mapStateToProps, { createRoom })(ActiveUser);

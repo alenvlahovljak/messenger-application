@@ -6,12 +6,12 @@ import "./Room.css";
 
 import defaultAvatar from "../../public/images/default-avatar.png";
 
-const Room = () => {
+const Room = ({ room }) => {
 	return (
 		<div className="room">
-			<Avatar src={defaultAvatar} size="6" />
+			<Avatar src={room.avatar?.path || defaultAvatar} size="6" />
 			<div className="room-info">
-				<span className="room-nick">Alen</span>
+				<span className="room-nick">{room.to.username}</span>
 				<span className="room-message">
 					Hy aleen you pice Hy aleen you pice Hy aleen you pice Hy aleen you pice
 				</span>

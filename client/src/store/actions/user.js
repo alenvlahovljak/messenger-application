@@ -1,4 +1,4 @@
-import { createUserAPI, setUserSocketIdAPI } from "../../services/api";
+import { createUserAPI, setUserSocketIdAPI, indexActiveUsersAPI } from "../../services/api";
 import { addError, removeError } from "./errors";
 import { removeInfoMessage } from "./infoMessages";
 import { setCurrentRoom } from "./rooms";
@@ -52,25 +52,6 @@ export const handleSetAvatar = (user) => {
 	};
 };
 
-export const handleGetAllUsersExpectCurrent = (users) => {
-	return {
-		type: actionTypes.GET_ALL_USERS_EXPECT_CURRENT,
-		users
-	};
-};
-
-export const getAllUsersExpectCurrent = (currentUser, allUsers) => {
-	const users = allUsers.filter((user) => user._id != currentUser._id);
-	return async (dispatch) => {
-		dispatch(handleGetAllUsersExpectCurrent(users));
-		try {
-		} catch (err) {
-			dispatch(removeInfoMessage());
-			dispatch(addError(err));
-		}
-	};
-};
-
 export const setAvatar = ({ _id }, data) => {
 	return async (dispatch) => {
 		try {
@@ -82,5 +63,39 @@ export const setAvatar = ({ _id }, data) => {
 			dispatch(removeInfoMessage());
 			dispatch(addError(data.message));
 		}
+	};
+};
+
+export const handleActiveUsers = (users) => {
+	return {
+		type: actionTypes.ACTIVE_USERS,
+		users
+	};
+};
+
+export const activeUsers = ({ _id }) => {
+	return async (dispatch) => {
+		try {
+			const users = await indexActiveUsersAPI("GET", `http://localhost:8000/users?currentUser=${_id}`);
+			dispatch(handleActiveUsers(users.data));
+		} catch (err) {
+			const { data } = err.response;
+			dispatch(removeInfoMessage());
+			dispatch(addError(data.message));
+		}
+	};
+};
+
+export const addActiveUser = (user) => {
+	return {
+		type: actionTypes.ADD_ACTIVE_USER,
+		user
+	};
+};
+
+export const removeActiveUser = (socketId) => {
+	return {
+		type: actionTypes.REMOVE_ACTIVE_USER,
+		socketId
 	};
 };

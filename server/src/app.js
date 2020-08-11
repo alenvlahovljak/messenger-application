@@ -16,19 +16,18 @@ const server = http.createServer(app);
 //configure socket.io
 const io = socketIO(server);
 
-//require user's helper functions
-const { Users } = require("./utils/users");
-
 //require error handler
 const { errorHandler } = require("./controllers/errors");
+
+//require helpers
+const { usersHelpers } = require("./helpers");
 
 //require routes
 const { usersRoutes, roomsRoutes } = require("./routes");
 
 //require database
 const db = require("./models");
-const user = require("./middleware/user");
-const users = require("./utils/users");
+const { createVerify } = require("crypto");
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -57,6 +56,15 @@ app.use("/rooms", roomsRoutes);
 io.on("connect", (socket) => {
 	console.log("New socket connected!");
 
+	socket.on("addUser", async (user, cb) => {
+		try {
+			socket.broadcast.emit("user", user);
+			cb();
+		} catch (err) {
+			cb("Unable to log user!");
+		}
+	});
+
 	socket.on("joinGlobalRoom", (user, cb) => {
 		try {
 			socket.join("global");
@@ -70,11 +78,19 @@ io.on("connect", (socket) => {
 
 	socket.on("sendMessage", (message, cb) => {
 		try {
-			io.to("global").emit("messageToRoom", message);
+			console.log("MSG", message);
+			message.save
+				? io.to("global").emit("messageToRoom", message)
+				: socket.to(message.to.socketId).emit("messageToRoom", message);
 			cb();
 		} catch (err) {
 			cb("Unable to send message!");
 		}
+	});
+
+	socket.on("disconnect", async () => {
+		const deletedUser = await usersHelpers.deleteUserHelper(socket.id);
+		if (deletedUser.deletedCount == 1) socket.broadcast.emit("removeUser", socket.id);
 	});
 });
 

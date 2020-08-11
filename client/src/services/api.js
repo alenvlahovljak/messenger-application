@@ -27,6 +27,14 @@ export const setAvatarAPI = (method, url, data) => {
 	});
 };
 
+export const indexActiveUsersAPI = (method, url, data) => {
+	return axios({
+		method,
+		url,
+		data
+	});
+};
+
 export const createRoomAPI = (method, url, data) => {
 	return axios({
 		method,
