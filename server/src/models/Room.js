@@ -2,28 +2,17 @@
 const mongoose = require("mongoose");
 
 //define mongoose Schema
-const roomSchema = new mongoose.Schema(
-	{
-		currentUser: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
-			required: true
-		},
-		participants: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "User"
-			}
-		],
-		messages: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "Message"
-			}
-		]
+const roomSchema = new mongoose.Schema({
+	from: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: true
 	},
-	{ timestamps: true }
-);
+	to: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
+	}
+});
 
 //define static method for JSON response
 roomSchema.methods.toJSON = function () {

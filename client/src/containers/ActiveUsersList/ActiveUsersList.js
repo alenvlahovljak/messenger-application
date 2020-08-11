@@ -18,7 +18,9 @@ class ActiveUsersList extends Component {
 
 	render() {
 		const { users } = this.props;
-		const activeUsersList = users.map((user) => <ActiveUser {...this.props} key={user._id} user={user} />);
+		const activeUsersList = users.map((activeUser) => (
+			<ActiveUser {...this.props} key={activeUser._id} activeUser={activeUser} />
+		));
 		return <div className="active-users-list">{activeUsersList.length == 0 ? <Loader /> : activeUsersList}</div>;
 	}
 }

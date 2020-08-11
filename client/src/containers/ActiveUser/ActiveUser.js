@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { createRoom } from "../../store/actions";
+import { createRoom, setCurrentRoom } from "../../store/actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -17,13 +17,14 @@ class ActiveUser extends Component {
 	}
 
 	onClickHandler = async () => {
-		const { history, createRoom, currentUser, user } = this.props;
-		createRoom(false, { from: currentUser, to: user });
-		history.push(`/rooms/${user._id}`);
+		const { history, createRoom, setCurrentRoom, currentUser, activeUser } = this.props;
+		createRoom(false, { from: currentUser, to: activeUser });
+		setCurrentRoom(activeUser);
+		history.push(`/rooms/${currentUser._id}`);
 	};
 
 	render() {
-		const { username, avatar } = this.props.user;
+		const { username, avatar } = this.props.activeUser;
 		return (
 			<div onClick={() => this.onClickHandler()} className="active-user">
 				<Avatar
@@ -47,4 +48,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { createRoom })(ActiveUser);
+export default connect(mapStateToProps, { createRoom, setCurrentRoom })(ActiveUser);

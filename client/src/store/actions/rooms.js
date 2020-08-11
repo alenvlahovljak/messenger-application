@@ -19,7 +19,6 @@ export const createRoom = (save, data) => {
 				dispatch(setCurrentRoom(room));
 			} else {
 				dispatch(handleCreateRoom(data));
-				dispatch(setCurrentRoom(data.to));
 			}
 		} catch (err) {
 			dispatch(removeInfoMessage());

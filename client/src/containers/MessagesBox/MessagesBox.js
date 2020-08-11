@@ -90,19 +90,27 @@ class MessagesBox extends Component {
 
 	render() {
 		const { disabled } = this.state;
-		const { match, user, messages } = this.props;
+		const { match, user, messages, room } = this.props;
+		const globalRoomMessages = messages.filter(
+			(globalRoomMessage) => match.params.room_id == globalRoomMessage.to._id
+		);
+		const globalRoomMessagesRender = globalRoomMessages.map(({ text, from, to, timestamp }) => {
+			return from.username == user.username ? (
+				<CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />
+			) : (
+				<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />
+			);
+		});
+		const roomMessagesRender = messages.map(({ text, from, to, timestamp }) => {
+			if (room._id == to._id && match.params.room_id == from._id)
+				return <CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />;
+			if (match.params.room_id == to._id && room._id == from._id)
+				return <OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />;
+		});
 		return (
 			<div className="messages-box">
 				<div id="messages" ref={(scroll) => (this.toBottom = scroll)} className="messages-box-chat">
-					{messages.map(({ text, from, to, timestamp }) => {
-						console.log("MATCH", match.params.room_id, to._id);
-
-						return from.username == user.username ? (
-							<CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />
-						) : (
-							<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />
-						);
-					})}
+					{match.params.room_id == "global" ? globalRoomMessagesRender : roomMessagesRender}
 				</div>
 				<div className="messages-box-input">
 					<form ref={(f) => (this.formRef = f)}>

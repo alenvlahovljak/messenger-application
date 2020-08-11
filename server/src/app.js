@@ -81,7 +81,7 @@ io.on("connect", (socket) => {
 			console.log("MSG", message);
 			message.save
 				? io.to("global").emit("messageToRoom", message)
-				: socket.to(message.to.socketId).emit("messageToRoom", message);
+				: io.to(message.from.socketId).to(message.to.socketId).emit("messageToRoom", message);
 			cb();
 		} catch (err) {
 			cb("Unable to send message!");

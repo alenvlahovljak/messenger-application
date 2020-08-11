@@ -63,7 +63,6 @@ class Messenger extends Component {
 		});
 
 		socket.on("removeUser", (socketId) => {
-			console.log("disconnect", socketId);
 			removeActiveUser(socketId);
 		});
 
@@ -77,7 +76,6 @@ class Messenger extends Component {
 
 		socket.on("messageToRoom", (message) => {
 			const { createRoom } = this.props;
-			console.log("messageTORoom", message);
 			if (message.save) {
 				newMessage(false, message);
 			} else {
