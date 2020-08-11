@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
 import { connect } from "react-redux";
 
 import { addError, removeError, addInfoMessage, removeInfoMessage, setCurrentRoom } from "../../store/actions";
 
-import { Avatar } from "../../components/UI";
+import Avatar from "../Avatar/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
 

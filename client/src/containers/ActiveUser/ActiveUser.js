@@ -5,7 +5,8 @@ import { createRoom, setCurrentRoom } from "../../store/actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { Avatar } from "../../components/UI";
+
+import Avatar from "../Avatar/Avatar";
 
 import "./ActiveUser.css";
 

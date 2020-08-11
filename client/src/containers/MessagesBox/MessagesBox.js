@@ -3,41 +3,9 @@ import { connect } from "react-redux";
 import { animateScroll } from "react-scroll";
 import TextareaAutosize from "react-textarea-autosize";
 
-import Messages from "../Messages/Messages";
+import { Messages } from "../../components/UI";
 
 import "./MessagesBox.css";
-
-import moment from "moment";
-
-import Avatar from "../Avatar/Avatar";
-
-const CurrentUserMessage = ({ text, timestamp }) => {
-	timestamp = moment(timestamp).format("LT");
-	return (
-		<div className="messages-box-content current-user">
-			<div className="messages-box-message current-user">
-				<p className="messages-box-text">{text}</p>
-				<span className="messages-box-time">{timestamp}</span>
-			</div>
-		</div>
-	);
-};
-
-const OtherUserMessage = ({ from, to, text, timestamp }) => {
-	timestamp = moment(timestamp).format("LT");
-	return (
-		<div className="messages-box-content">
-			<Avatar />
-			<div className="message-box-info">
-				{to._id == "global" && <span className="messages-box-username">{from.username}</span>}
-				<div className="messages-box-message">
-					<p className="messages-box-text">{text}</p>
-					<span className="messages-box-time">{timestamp}</span>
-				</div>
-			</div>
-		</div>
-	);
-};
 
 class MessagesBox extends Component {
 	constructor(props) {
@@ -91,26 +59,10 @@ class MessagesBox extends Component {
 	render() {
 		const { disabled } = this.state;
 		const { match, user, messages, room } = this.props;
-		const globalRoomMessages = messages.filter(
-			(globalRoomMessage) => match.params.room_id == globalRoomMessage.to._id
-		);
-		const globalRoomMessagesRender = globalRoomMessages.map(({ text, from, to, timestamp }) => {
-			return from.username == user.username ? (
-				<CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />
-			) : (
-				<OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />
-			);
-		});
-		const roomMessagesRender = messages.map(({ text, from, to, timestamp }) => {
-			if (room._id == to._id && match.params.room_id == from._id)
-				return <CurrentUserMessage key={timestamp} text={text} timestamp={timestamp} />;
-			if (match.params.room_id == to._id && room._id == from._id)
-				return <OtherUserMessage key={timestamp} text={text} timestamp={timestamp} from={from} to={to} />;
-		});
 		return (
 			<div className="messages-box">
 				<div id="messages" ref={(scroll) => (this.toBottom = scroll)} className="messages-box-chat">
-					{match.params.room_id == "global" ? globalRoomMessagesRender : roomMessagesRender}
+					<Messages match={match} user={user} messages={messages} room={room} />
 				</div>
 				<div className="messages-box-input">
 					<form ref={(f) => (this.formRef = f)}>

@@ -21,7 +21,7 @@ import ActiveUsersList from "../ActiveUsersList/ActiveUsersList";
 import MessagesBox from "../MessagesBox/MessagesBox";
 import NavBar from "../NavBar/NavBar";
 
-import { UserInfo } from "../../components/UI";
+import UserInfo from "../UserInfo/UserInfo";
 import Popup from "../Popup/Popup";
 
 import "./Messenger.css";
