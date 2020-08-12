@@ -21,3 +21,4 @@ mongoose.connect(DATABASE.ATLAS || DATABASE.LOCAL, {
 //require model and export
 module.exports.User = require("./User");
 module.exports.Room = require("./Room");
+module.exports.Message = require("./Message");

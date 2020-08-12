@@ -14,6 +14,6 @@ export const REMOVE_ACTIVE_USER = "REMOVE_ACITVE_USER";
 
 export const CREATE_ROOM = "CREATE_ROOM";
 export const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
-export const LOAD_MESSAGES = "LOAD_MESSAGES";
 
 export const NEW_MESSAGE = "NEW_MESSAGE";
+export const LOAD_MESSAGES = "LOAD_MESSAGES";

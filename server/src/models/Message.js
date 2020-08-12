@@ -10,16 +10,9 @@ const messageSchema = new mongoose.Schema(
 			trim: true,
 			minlength: [3, "Username must containt at least 3 characters"]
 		},
-		from: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
-			required: true
-		},
-		to: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
-			required: true
-		}
+		from: { type: Object },
+		to: { type: Object },
+		timestamp: { type: Object }
 	},
 	{ timestamps: true }
 );

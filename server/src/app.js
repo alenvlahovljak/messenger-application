@@ -23,7 +23,7 @@ const { errorHandler } = require("./controllers/errors");
 const { usersHelpers } = require("./helpers");
 
 //require routes
-const { usersRoutes, roomsRoutes } = require("./routes");
+const { usersRoutes, roomsRoutes, messagesRoutes } = require("./routes");
 
 //require database
 const db = require("./models");
@@ -52,6 +52,7 @@ app.use("/static/avatars", express.static(path.join(__dirname, "../public/storag
 //use routes
 app.use("/users", usersRoutes);
 app.use("/rooms", roomsRoutes);
+app.use("/messages", messagesRoutes);
 
 io.on("connect", (socket) => {
 	console.log("New socket connected!");

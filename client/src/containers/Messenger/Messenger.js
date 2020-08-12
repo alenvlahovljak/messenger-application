@@ -63,10 +63,9 @@ class Messenger extends Component {
 		});
 
 		socket.on("messageToRoom", (message) => {
-			console.log("MSG", message);
 			const { createRoom } = this.props;
 			if (message.save) {
-				newMessage(false, message);
+				newMessage(true, message);
 			} else {
 				createRoom(false, { to: message.from, from: message.to });
 				newMessage(false, message);

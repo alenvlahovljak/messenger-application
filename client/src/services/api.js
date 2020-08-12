@@ -42,3 +42,19 @@ export const createRoomAPI = (method, url, data) => {
 		data
 	});
 };
+
+export const createMessageAPI = (method, url, data) => {
+	return axios({
+		method,
+		url,
+		data
+	});
+};
+
+export const indexMessagesAPI = (method, url, data) => {
+	return axios({
+		method,
+		url,
+		data
+	});
+};
