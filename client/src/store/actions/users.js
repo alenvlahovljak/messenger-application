@@ -1,8 +1,10 @@
-import { createUserAPI, setUserSocketIdAPI, indexActiveUsersAPI } from "../../services/api";
+import * as actionTypes from "../actionTypes";
+
+import { createUserAPI, setUserSocketIdAPI, setAvatarAPI, indexActiveUsersAPI } from "../../services/api";
+
 import { addError, removeError } from "./errors";
 import { removeInfoMessage } from "./infoMessages";
 import { setCurrentRoom } from "./rooms";
-import * as actionTypes from "../actionTypes";
 
 export const handleCreateUser = (user) => {
 	return {
@@ -55,7 +57,7 @@ export const handleSetAvatar = (user) => {
 export const setAvatar = ({ _id }, data) => {
 	return async (dispatch) => {
 		try {
-			const user = await createUserAPI("POST", `http://localhost:8000/users/${_id}/avatar`, data);
+			const user = await setAvatarAPI("POST", `/users/${_id}/avatar`, data);
 			dispatch(handleSetAvatar(user.data));
 			dispatch(removeError());
 		} catch (err) {
@@ -76,7 +78,7 @@ export const handleActiveUsers = (users) => {
 export const activeUsers = ({ _id }) => {
 	return async (dispatch) => {
 		try {
-			const users = await indexActiveUsersAPI("GET", `http://localhost:8000/users?currentUser=${_id}`);
+			const users = await indexActiveUsersAPI("GET", `/users?currentUser=${_id}`);
 			dispatch(handleActiveUsers(users.data));
 		} catch (err) {
 			const { data } = err.response;

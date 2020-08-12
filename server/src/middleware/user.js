@@ -11,7 +11,6 @@ const isValidUser = async (req, res, next) => {
 		if (user == null) return res.status(404).json({ status: 404, message: "User Not Found" });
 		next();
 	} catch (err) {
-		console.log("EERR", err);
 		next(err);
 	}
 };

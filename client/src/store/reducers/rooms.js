@@ -1,4 +1,4 @@
-import { CREATE_ROOM, SET_CURRENT_ROOM } from "../actionTypes";
+import { CREATE_ROOM, SET_CURRENT_ROOM, LAST_MESSAGE_IN_ROOM } from "../actionTypes";
 
 const DEFAULT_STATE = {
 	currentRoom: {},

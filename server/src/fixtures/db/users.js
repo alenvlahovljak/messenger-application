@@ -8,7 +8,6 @@ const db = require("../../models");
 const userOneId = new mongoose.Types.ObjectId();
 const userTwoId = new mongoose.Types.ObjectId();
 const userThreeId = new mongoose.Types.ObjectId();
-console.log("HELlo", userOneId);
 
 //define user's model No. 1
 const userOne = {

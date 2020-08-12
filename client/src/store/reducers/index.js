@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import errors from "./errors";
-import users from "./user";
+import users from "./users";
 import messages from "./messages";
 import infoMessages from "./infoMessages";
 import rooms from "./rooms";

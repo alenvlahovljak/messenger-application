@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addError, removeError, addInfoMessage, removeInfoMessage } from "../../store/actions";
+import { addError, removeError, addInfoMessage, removeInfoMessage, activeUsers } from "../../store/actions";
 
 import ActiveUser from "../ActiveUser/ActiveUser";
 import { Loader } from "../../components/Animations";
@@ -11,6 +11,11 @@ class ActiveUsersList extends Component {
 	constructor(props) {
 		super(props);
 	}
+
+	componentDidMount = () => {
+		const { activeUsers, user } = this.props;
+		activeUsers(user);
+	};
 
 	render() {
 		const { users } = this.props;
@@ -23,8 +28,11 @@ class ActiveUsersList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		user: state.users.currentUser,
 		users: state.users.users
 	};
 };
 
-export default connect(mapStateToProps, { addError, removeError, addInfoMessage, removeInfoMessage })(ActiveUsersList);
+export default connect(mapStateToProps, { addError, removeError, addInfoMessage, removeInfoMessage, activeUsers })(
+	ActiveUsersList
+);

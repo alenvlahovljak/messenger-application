@@ -1,15 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { setCurrentRoom } from "../../store/actions";
 
 import Avatar from "../Avatar/Avatar";
 
 import "./GlobalRoom.css";
 
-import defaultAvatar from "../../public/images/default-avatar.png";
+import globalRoomAvatar from "../../public/images/global-room-avatar.png";
 
-const GlobalRoom = ({ joinGlobalRoom, lastSendMessage, lastRecivedMessage }) => {
+const GlobalRoom = ({ joinGlobalRoom, setCurrentRoom, lastSendMessage, lastRecivedMessage }) => {
 	return (
-		<div className="global-room" onClick={() => joinGlobalRoom()}>
-			<Avatar src={defaultAvatar} />
+		<div
+			className="global-room"
+			onClick={() => {
+				joinGlobalRoom();
+				setCurrentRoom({ _id: "global", username: "Global Room" });
+			}}
+		>
+			<Avatar src={globalRoomAvatar} />
 			<div className="global-room-info">
 				<span className="global-room-nick">Global Room</span>
 				<span className="global-room-message">
@@ -24,4 +33,4 @@ const GlobalRoom = ({ joinGlobalRoom, lastSendMessage, lastRecivedMessage }) => 
 	);
 };
 
-export default GlobalRoom;
+export default connect(null, { setCurrentRoom })(GlobalRoom);

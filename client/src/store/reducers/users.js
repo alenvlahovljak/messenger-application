@@ -32,7 +32,7 @@ export default (state = DEFAULT_STATE, action) => {
 		case ACTIVE_USERS:
 			return {
 				...state,
-				users: [...state.users, ...action.users]
+				users: [...action.users]
 			};
 		case ADD_ACTIVE_USER:
 			return {

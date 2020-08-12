@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //configure static files serving
-app.use("/messenger/avatars", express.static(path.join(__dirname, "../public/storage/avatars")));
+app.use("/static/avatars", express.static(path.join(__dirname, "../public/storage/avatars")));
 
 //use routes
 app.use("/users", usersRoutes);
@@ -78,7 +78,6 @@ io.on("connect", (socket) => {
 
 	socket.on("sendMessage", (message, cb) => {
 		try {
-			console.log("MSG", message);
 			message.save
 				? io.to("global").emit("messageToRoom", message)
 				: io.to(message.from.socketId).to(message.to.socketId).emit("messageToRoom", message);

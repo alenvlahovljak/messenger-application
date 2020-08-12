@@ -33,7 +33,6 @@ const createAvatar = async (req, res, next) => {
 		await user.save();
 		return res.status(201).json(user);
 	} catch (err) {
-		console.log(err);
 		return next({
 			status: 400,
 			messages: err.messages

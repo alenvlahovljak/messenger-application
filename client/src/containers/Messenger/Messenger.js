@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { BASE_URL } from "../../config/api";
+
 import io from "socket.io-client";
 
 import { Route } from "react-router-dom";
@@ -7,7 +9,6 @@ import { connect } from "react-redux";
 import {
 	setUserSocketId,
 	createRoom,
-	activeUsers,
 	addActiveUser,
 	removeActiveUser,
 	newMessage,
@@ -30,29 +31,16 @@ class Messenger extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			socket: io("http://localhost:8000")
+			socket: io(BASE_URL)
 		};
 	}
 
 	componentDidMount = () => {
-		const {
-			match,
-			setUserSocketId,
-			newMessage,
-			addInfoMessage,
-			user,
-			activeUsers,
-			addActiveUser,
-			removeActiveUser
-		} = this.props;
 		const { socket } = this.state;
-
-		activeUsers(user);
+		const { setUserSocketId, newMessage, addInfoMessage, user, addActiveUser, removeActiveUser } = this.props;
 
 		socket.on("connect", () => {
-			console.log(socket.connected); // true
 			setUserSocketId({ ...user, socketId: socket.id });
-
 			socket.emit("addUser", { ...user, status: "online", socketId: socket.id }, (err) => {
 				if (err?.length > 0) {
 					removeInfoMessage();
@@ -75,6 +63,7 @@ class Messenger extends Component {
 		});
 
 		socket.on("messageToRoom", (message) => {
+			console.log("MSG", message);
 			const { createRoom } = this.props;
 			if (message.save) {
 				newMessage(false, message);
@@ -150,7 +139,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
 	setUserSocketId,
 	createRoom,
-	activeUsers,
 	addActiveUser,
 	removeActiveUser,
 	newMessage,

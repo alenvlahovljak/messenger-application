@@ -28,7 +28,6 @@ const indexUsers = async (req, res, next) => {
 	try {
 		const { currentUser } = req.query;
 		const users = await db.User.find({ _id: { $nin: currentUser }, status: "online" });
-		console.log(users);
 		return res.status(200).json(users);
 	} catch (err) {
 		next(err);

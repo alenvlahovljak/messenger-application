@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { BASE_URL } from "../../config/api";
+
 import { addError, removeError, addInfoMessage, removeInfoMessage, setCurrentRoom } from "../../store/actions";
 
-import Avatar from "../Avatar/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
+
+import Avatar from "../Avatar/Avatar";
 
 import "./UserInfo.css";
 
@@ -15,7 +18,8 @@ class UserInfo extends Component {
 	}
 
 	render() {
-		const { user, room, history, match } = this.props;
+		const { history, match, user, room } = this.props;
+		console.log("MATCH", match);
 		return (
 			<header className="user-info">
 				{match.params.id_2 && (
@@ -38,7 +42,11 @@ class UserInfo extends Component {
 
 				<Avatar
 					upload
-					src={room.avatar && `http://localhost:8000/messenger/${room.avatar.path}?${Date.now()}`}
+					src={
+						user._id == room._id
+							? user.avatar?.path && `${BASE_URL}/static/${user.avatar.path}?${Date.now()}`
+							: room.avatar?.path && `${BASE_URL}/static/${room.avatar.path}?${Date.now()}`
+					}
 					alt={room.username}
 				/>
 			</header>

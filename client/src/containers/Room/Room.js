@@ -1,23 +1,47 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { BASE_URL } from "../../config/api";
+
+import { createRoom, setCurrentRoom } from "../../store/actions";
 
 import Avatar from "../Avatar/Avatar";
 
 import "./Room.css";
 
-import defaultAvatar from "../../public/images/default-avatar.png";
+class Room extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-const Room = ({ to, lastSendMessage, lastRecivedMessage }) => {
-	return (
-		<div className="room">
-			<Avatar src={to.avatar?.path || defaultAvatar} />
-			<div className="room-info">
-				<span className="room-nick">{to.username}</span>
-				<span className="room-message">
-					{lastSendMessage?.text ? `YOU: ${lastSendMessage.text}` : lastRecivedMessage?.text}
-				</span>
+	onClickHandler = () => {
+		const { history, createRoom, setCurrentRoom, from, to } = this.props;
+		createRoom(false, { from, to });
+		setCurrentRoom(to);
+		history.push(`/rooms/${from._id}`);
+	};
+
+	render() {
+		const { to, sendMessage, recivedMessage } = this.props;
+		return (
+			<div onClick={() => this.onClickHandler()} className="room">
+				<Avatar src={to.avatar?.path && `${BASE_URL}/static/${to.avatar.path}?${Date.now()}`} />
+				<div className="room-info">
+					<span className="room-nick">{to.username}</span>
+					<span className="room-message">
+						{sendMessage?.text ? `YOU: ${sendMessage.text}` : recivedMessage?.text}
+					</span>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
+}
+
+const mapStateToProps = (state) => {
+	return {
+		user: state.users.currentUser,
+		messages: state.messages
+	};
 };
 
-export default Room;
+export default connect(mapStateToProps, { createRoom, setCurrentRoom })(Room);

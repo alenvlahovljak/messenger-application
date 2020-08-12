@@ -57,13 +57,15 @@ class LandingPage extends Component {
 		return (
 			<main className="main">
 				<Popup />
-				<div className="landing-page">
-					<span className="landing-page-info">
-						Enter application to chat with users which are currently online.
-					</span>
-					<form onSubmit={this.onSubmitHandler} className="landing-page-form">
-						{this.state.isClicked ? <Loader /> : <button className="landing-page-button">CHAT NOW </button>}
-					</form>
+				<div className="main-landing-page">
+					<div className="landing-page">
+						<span className="landing-page-info">
+							Enter application to chat with users which are currently online.
+						</span>
+						<form onSubmit={this.onSubmitHandler} className="landing-page-form">
+							{this.state.isClicked ? <Loader /> : <button className="landing-page-button">CHAT NOW </button>}
+						</form>
+					</div>
 				</div>
 			</main>
 		);

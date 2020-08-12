@@ -26,22 +26,16 @@ class Avatar extends Component {
 	};
 
 	render() {
-		const { src = defaultAvatar, alt = "User didn't provide avatar", size, upload } = this.props;
+		const { src = defaultAvatar, alt = "User didn't provide avatar", upload } = this.props;
 		return upload ? (
 			<label onClick={this.onClickHandler} htmlFor="avatar-upload" style={{ position: "relative" }}>
 				<div className="avatar-activity"></div>
-				<img
-					onChange={this.change}
-					className={styles.Upload}
-					src={src}
-					alt={`${alt}'s avatar`}
-					style={{ height: `${size}rem`, width: `${size}rem` }}
-				/>
+				<img onChange={this.change} className={styles.Upload} src={src} alt={`${alt}'s avatar`} />
 				<input onChange={this.onChangeHandler} id="avatar-upload" className="avatar-upload" type="file" required />
 			</label>
 		) : (
 			<span style={{ position: "relative" }}>
-				<img src={src} alt={alt} style={{ height: `${size}rem`, width: `${size}rem` }} />
+				<img src={src} alt={alt} />
 			</span>
 		);
 	}

@@ -1,7 +1,9 @@
+import * as actionTypes from "../actionTypes";
+
 import { createRoomAPI } from "../../services/api";
+
 import { addError, removeError } from "./errors";
 import { removeInfoMessage } from "./infoMessages";
-import * as actionTypes from "../actionTypes";
 
 export const handleCreateRoom = (room) => {
 	return {

@@ -23,10 +23,11 @@ class RoomsList extends Component {
 	};
 
 	render() {
-		const { joinGlobalRoom, user, rooms } = this.props;
+		const { history, joinGlobalRoom, user, rooms } = this.props;
 		return (
 			<div className="rooms-list">
 				<GlobalRoom
+					history={history}
 					joinGlobalRoom={joinGlobalRoom}
 					lastSendMessage={this.lastMessage(user._id, "global")}
 					lastRecivedMessage={this.lastMessage(false, "global")}
@@ -36,9 +37,11 @@ class RoomsList extends Component {
 						from._id == user._id && (
 							<Room
 								key={to._id}
-								lastSendMessage={this.lastMessage(from._id, to._id)}
-								lastRecivedMessage={this.lastMessage(to._id, from._id)}
+								history={history}
+								from={from}
 								to={to}
+								sendMessage={this.lastMessage(from._id, to._id)}
+								recivedMessage={this.lastMessage(to._id, from._id)}
 							/>
 						)
 				)}

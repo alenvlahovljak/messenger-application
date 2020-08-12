@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { BASE_URL } from "../../config/api";
+
 import { createRoom, setCurrentRoom } from "../../store/actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,14 +12,12 @@ import Avatar from "../Avatar/Avatar";
 
 import "./ActiveUser.css";
 
-import defaultAvatar from "../../public/images/default-avatar.png";
-
 class ActiveUser extends Component {
 	constructor(props) {
 		super(props);
 	}
 
-	onClickHandler = async () => {
+	onClickHandler = () => {
 		const { history, createRoom, setCurrentRoom, currentUser, activeUser } = this.props;
 		createRoom(false, { from: currentUser, to: activeUser });
 		setCurrentRoom(activeUser);
@@ -28,9 +28,7 @@ class ActiveUser extends Component {
 		const { username, avatar } = this.props.activeUser;
 		return (
 			<div onClick={() => this.onClickHandler()} className="active-user">
-				<Avatar
-					src={avatar?.path ? `http://localhost:8000/messenger/${avatar.path}?${Date.now()}` : defaultAvatar}
-				/>
+				<Avatar src={avatar?.path && `${BASE_URL}/static/${avatar.path}?${Date.now()}`} />
 				<div className="active-user-info">
 					<span className="active-user-nick">{username}</span>
 					<span className="active-user-activity">
