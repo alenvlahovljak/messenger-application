@@ -79,7 +79,7 @@ class Messenger extends Component {
 			if (message.save) {
 				newMessage(false, message);
 			} else {
-				createRoom(false, { from: message.from, to: message.to });
+				createRoom(false, { to: message.from, from: message.to });
 				newMessage(false, message);
 			}
 		});

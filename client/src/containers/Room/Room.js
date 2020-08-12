@@ -6,14 +6,17 @@ import "./Room.css";
 
 import defaultAvatar from "../../public/images/default-avatar.png";
 
-const Room = ({ room }) => {
+const Room = ({ from, to, lastSendMessage, lastRecivedMessage }) => {
+	console.log("The last recived message is", lastRecivedMessage);
+	console.log("TO", to);
+	console.log("FROM", from);
 	return (
 		<div className="room">
-			<Avatar src={room.avatar?.path || defaultAvatar} size="6" />
+			<Avatar src={to.avatar?.path || defaultAvatar} size="6" />
 			<div className="room-info">
-				<span className="room-nick">{room.to.username}</span>
+				<span className="room-nick">{to.username}</span>
 				<span className="room-message">
-					Hy aleen you pice Hy aleen you pice Hy aleen you pice Hy aleen you pice
+					{lastSendMessage?.text ? `YOU: ${lastSendMessage.text}` : lastRecivedMessage?.text}
 				</span>
 			</div>
 		</div>
