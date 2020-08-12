@@ -13,8 +13,10 @@ class RoomsList extends Component {
 		super(props);
 	}
 
-	lastSendMessage = (from, to) => {
+	lastMessage = (from, to) => {
 		const { messages } = this.props;
+		if (from == false)
+			return messages.filter((message, i, messages) => message.to._id == to && messages.length - 1 == i)[0];
 		return messages.filter(
 			(message, i, messages) => message.from._id == from && message.to._id == to && messages.length - 1 == i
 		)[0];
@@ -24,15 +26,18 @@ class RoomsList extends Component {
 		const { joinGlobalRoom, user, rooms } = this.props;
 		return (
 			<div className="rooms-list">
-				<GlobalRoom joinGlobalRoom={joinGlobalRoom} lastSendMessage />
+				<GlobalRoom
+					joinGlobalRoom={joinGlobalRoom}
+					lastSendMessage={this.lastMessage(user._id, "global")}
+					lastRecivedMessage={this.lastMessage(false, "global")}
+				/>
 				{rooms.map(
 					({ from, to }) =>
 						from._id == user._id && (
 							<Room
 								key={to._id}
-								lastSendMessage={this.lastSendMessage(from._id, to._id)}
-								lastRecivedMessage={this.lastSendMessage(to._id, from._id)}
-								from={from}
+								lastSendMessage={this.lastMessage(from._id, to._id)}
+								lastRecivedMessage={this.lastMessage(to._id, from._id)}
 								to={to}
 							/>
 						)

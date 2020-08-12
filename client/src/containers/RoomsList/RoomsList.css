@@ -2,9 +2,10 @@
 	display: flex;
 	overflow-y: auto;
 	flex-direction: column;
+	align-items: center;
 	background-color: #1c1b1b;
 	flex-grow: 1;
-	padding: 3rem 3rem;
+	padding: 3rem 0.7rem;
 }
 
 @media screen and (min-width: 320px) {
@@ -14,18 +15,33 @@
 }
 
 @media screen and (min-width: 480px) {
+	.rooms-list {
+		padding: 3rem 2.5rem;
+	}
 }
 
 @media screen and (min-width: 520px) {
+	.rooms-list {
+		padding: 3rem 3rem;
+	}
 }
 
 @media screen and (min-width: 600px) {
+	.rooms-list {
+		padding: 3rem 3.5rem;
+	}
 }
 
 @media screen and (min-width: 720px) {
+	.rooms-list {
+		padding: 3rem 4rem;
+	}
 }
 
 @media screen and (min-width: 800px) {
+	.rooms-list {
+		padding: 3rem 4.5rem;
+	}
 }
 
 @media screen and (min-width: 1024px) {

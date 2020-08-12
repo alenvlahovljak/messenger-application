@@ -85,10 +85,6 @@ class Messenger extends Component {
 		});
 	};
 
-	getAllActiveUsers = () => {
-		console.log("HELLo");
-	};
-
 	joinGlobalRoom = () => {
 		const { socket } = this.state;
 		const { history, user } = this.props;
@@ -123,11 +119,7 @@ class Messenger extends Component {
 				<Popup />
 				<div className="messenger-box">
 					<UserInfo {...this.props} />
-					<Route
-						exact
-						path="/active-users"
-						render={(props) => <ActiveUsersList {...props} getAllActiveUsers={this.getAllActiveUsers} />}
-					/>
+					<Route exact path="/active-users" render={(props) => <ActiveUsersList {...props} />} />
 					<Route
 						exact
 						path="/rooms"
@@ -138,7 +130,6 @@ class Messenger extends Component {
 						path="/rooms/:room_id"
 						render={(props) => <MessagesBox {...props} sendMessage={this.sendMessage} />}
 					/>
-					{/*Add for other routes */}
 					<NavBar />
 				</div>
 			</main>

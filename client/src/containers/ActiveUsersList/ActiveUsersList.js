@@ -12,10 +12,6 @@ class ActiveUsersList extends Component {
 		super(props);
 	}
 
-	componentDidMount = () => {
-		this.props.getAllActiveUsers();
-	};
-
 	render() {
 		const { users } = this.props;
 		const activeUsersList = users.map((activeUser) => (
