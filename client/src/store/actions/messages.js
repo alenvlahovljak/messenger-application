@@ -17,9 +17,10 @@ export const newMessage = (save, data) => {
 		try {
 			if (!save) {
 				dispatch(handleNewMessage(data));
+			} else {
+				const message = await createMessageAPI("POST", "/messages", data);
+				dispatch(handleNewMessage(message.data));
 			}
-			const user = await createMessageAPI("POST", "/messages", data);
-			dispatch(handleNewMessage(user.data));
 		} catch (err) {
 			dispatch(removeInfoMessage());
 			dispatch(addError(err.response.data.message));

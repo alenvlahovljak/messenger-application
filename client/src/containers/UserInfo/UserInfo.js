@@ -19,7 +19,6 @@ class UserInfo extends Component {
 
 	render() {
 		const { history, match, user, room } = this.props;
-		console.log("MATCH", match);
 		return (
 			<header className="user-info">
 				{match.params.id_2 && (
