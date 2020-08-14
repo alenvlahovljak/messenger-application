@@ -15,11 +15,12 @@ export const handleNewMessage = (message) => {
 export const newMessage = (save, data) => {
 	return async (dispatch) => {
 		try {
-			if (!save) {
-				dispatch(handleNewMessage(data));
-			} else {
+			if (save == true) {
 				const message = await createMessageAPI("POST", "/messages", data);
 				dispatch(handleNewMessage(message.data));
+			}
+			if (save == false) {
+				dispatch(handleNewMessage(data));
 			}
 		} catch (err) {
 			dispatch(removeInfoMessage());

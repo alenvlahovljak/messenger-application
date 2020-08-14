@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { setCurrentRoom, loadMessages } from "../../store/actions";
@@ -10,13 +10,16 @@ import "./GlobalRoom.css";
 import globalRoomAvatar from "../../public/images/global-room-avatar.png";
 
 const GlobalRoom = ({ joinGlobalRoom, setCurrentRoom, loadMessages, lastSendMessage, lastRecivedMessage }) => {
+	useEffect(() => {
+		joinGlobalRoom();
+		loadMessages();
+	}, []);
+
 	return (
 		<div
 			className="global-room"
 			onClick={() => {
-				joinGlobalRoom();
 				setCurrentRoom({ _id: "global", username: "Global Room" });
-				loadMessages();
 			}}
 		>
 			<Avatar src={globalRoomAvatar} />
