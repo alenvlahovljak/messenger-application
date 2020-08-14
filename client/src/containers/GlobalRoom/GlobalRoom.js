@@ -11,7 +11,6 @@ import globalRoomAvatar from "../../public/images/global-room-avatar.png";
 
 const GlobalRoom = ({ joinGlobalRoom, setCurrentRoom, loadMessages, lastSendMessage, lastRecivedMessage }) => {
 	useEffect(() => {
-		joinGlobalRoom();
 		loadMessages();
 	}, []);
 
@@ -19,6 +18,7 @@ const GlobalRoom = ({ joinGlobalRoom, setCurrentRoom, loadMessages, lastSendMess
 		<div
 			className="global-room"
 			onClick={() => {
+				joinGlobalRoom();
 				setCurrentRoom({ _id: "global", username: "Global Room" });
 			}}
 		>
