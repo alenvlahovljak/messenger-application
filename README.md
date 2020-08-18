@@ -1,4 +1,4 @@
-# Distance Learning Platform
+# Messenger Application
 
 > ### Technologies: React.js, Express.js, Node.js, MongoDB
 
